@@ -1,0 +1,6 @@
+export PATH="/usr/local/cuda/bin:${PATH}"
+export LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH:-}"
+export CUDA_HOME="/usr/local/cuda"
+export CUDA_PATH="/usr/local/cuda"
+export LIBRARY_PATH="/usr/local/cuda/lib64:${LIBRARY_PATH:-}"
+export CUDACXX="/usr/local/cuda/bin/nvcc"

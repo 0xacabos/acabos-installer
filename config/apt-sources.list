@@ -1,0 +1,7 @@
+# APT sources for the installed system (copied into chroot by mmdebstrap --setup-hook).
+# NVIDIA repos are added during NVIDIA_BRINGUP stage.
+#
+# trixie:           base system (priority 500)
+# trixie-backports: boot-critical cohort (priority 900 for pinned packages, 100 catch-all)
+deb http://deb.debian.org/debian trixie main contrib non-free-firmware
+deb http://deb.debian.org/debian trixie-backports main contrib non-free-firmware

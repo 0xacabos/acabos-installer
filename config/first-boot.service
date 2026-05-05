@@ -1,0 +1,13 @@
+[Unit]
+Description=ACABOS First Boot Setup
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=!/etc/acabos/first-boot-done
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/first-boot-setup
+
+[Install]
+WantedBy=multi-user.target

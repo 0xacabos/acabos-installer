@@ -1,0 +1,23 @@
+[Unit]
+Description=AI Development Toolbox (PyTorch)
+After=local-fs.target
+
+[Container]
+Image=docker.io/pytorch/pytorch:latest
+ContainerName=ai-toolbox
+PublishPort=8888:8888
+PublishPort=6006:6006
+Volume=ai-projects:/workspace
+Volume=ai-models:/models
+Volume=ai-data:/data
+Environment=CUDA_VISIBLE_DEVICES=0
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Device=nvidia.com/gpu=all
+
+[Service]
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

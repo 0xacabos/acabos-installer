@@ -1,0 +1,3 @@
+# ollama native binary pinning
+OLLAMA_VERSION="0.21.0"
+OLLAMA_ARCHIVE_URL="https://ollama.com/download/ollama-linux-amd64.tgz?version=0.21.0"

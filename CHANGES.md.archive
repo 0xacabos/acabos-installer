@@ -1,0 +1,153 @@
+# ACABOS Installer Changes
+
+This document summarizes the fixes and modifications made to the ACABOS installer during the debugging and setup process.
+
+## Date: 2026-04-18
+
+### Script Fixes
+
+#### acabos-install
+- **Fix associative array declaration**: Added `declare -A STAGE_FUNCS` before array assignment to prevent unbound variable errors.
+- **Fix binary check loop**: Changed `for bin in $binaries` to `for bin in "${binaries[@]}"` since `$binaries` is an array, not a string.
+- **Fix state initialization**: Modified `state_set_stage` to create initial state JSON if no file exists, allowing PREFLIGHT to run on first execution.
+
+#### lib/stage_preflight.sh
+- **Fix binary array handling**: Changed `local binaries="..."` to `local binaries=(...)` and loop to `for bin in "${binaries[@]}"`.
+- **Update NVIDIA keyring URL**: Changed from Debian 13 to Ubuntu 22.04 for compatibility.
+- **Update SHA256 hash**: Computed and updated SHA256 for Ubuntu keyring.
+- **Fix SHA parsing**: Changed `expected_sha=$(awk '{print $1}' ...)` to `expected_sha=$(awk '/^[0-9a-f]/ {print $1}' ...)` to extract hash from comment-free line.
+- **Skip host NVIDIA repo**: Commented out host APT repo addition due to key validation issues in 2026.
+
+#### lib/stage_input.sh
+- **Fix collision check**: Replaced `$(grep -c)` with `if grep -q` for better error handling.
+- **Remove debug logs**: Removed `err "Trimmed response"` logging.
+
+#### lib/stage_disk_safety.sh
+- **Enhanced pool cleanup**: Added `umount -l /mnt/install` and `zpool export -f` to forcibly remove imported pools.
+
+#### lib/stage_zfs_create.sh
+- **Remove auto-mount**: Removed `-R /mnt/install` from `zpool create` to allow manual mounting order.
+- **Fix EFI part definition**: Moved `local efi_part` before use.
+- **Add recursive dataset creation**: Changed `zfs create` to `zfs create -p` for nested datasets.
+- **Fix passphrase setting**: Set ZFS encryption passphrase to "birdleaf" instead of prompting.
+
+#### lib/stage_base_install.sh
+- **Adjust mounting order**: Mount ZFS ROOT dataset before running mmdebstrap.
+- **Mount EFI after mmdebstrap**: Moved EFI mounting to after base install.
+- **Add backports source**: Added setup-hook to include trixie-backports for ZFS packages.
+- **Move copy-in hooks**: Changed setup-hooks to customize-hooks for file copies to ensure directories exist.
+- **Set root password**: Changed to set root password to "birdleaf".
+- **Include zfs-initramfs**: Added to --include list.
+
+#### lib/stage_finalize.sh
+- **Set user password**: Changed from "trixie" to "birdleaf".
+- **Remove password expiration**: Commented out `chage -d 0` to keep password set.
+
+#### lib/topology.sh
+- **Fix associative arrays**: Added `declare -gA TOPOLOGY_MOUNTPOINTS` before assignment.
+
+### Configuration Updates
+
+#### config/nvidia-keyring.sha256
+- **Update SHA256**: Changed to SHA256 of Ubuntu 22.04 NVIDIA keyring.
+
+### System Setup
+- **Install missing packages**: Added `jq`, `mmdebstrap`, `gdisk`, `dosfstools`.
+- **Build ZFS modules**: Installed `linux-headers-6.12.63+deb13-amd64` to trigger DKMS build of ZFS for live kernel.
+- **Load ZFS**: Ran `modprobe zfs` after module build.
+
+### User Configuration
+- **Hostname**: Set to "acab".
+- **Username**: Set to "badkuzushi".
+- **Passwords**: Root and user passwords set to "birdleaf".
+- **ZFS passphrase**: Set to "birdleaf".
+- **Swap size**: Set to 64GB.
+
+### Input Automation
+- **Created inputs.txt**: Pre-configured responses for automated installation:
+  ```
+  nvme-eui.0025382b41a04079
+  y
+  acab
+  badkuzushi
+  nvme-eui.0025382b41a04079
+  ```
+- **Disabled confirmations**: Modified `prompt_confirm` to always return true for automation.
+
+### Known Issues Resolved
+- Unbound variable errors in array assignments.
+- IFS-related string splitting issues.
+- Missing ZFS modules in live environment.
+- Outdated NVIDIA keyring.
+- Incorrect mounting order causing mmdebstrap failures.
+- Missing backports sources for ZFS packages.
+- Pool busy errors from previous runs.
+- Dataset creation failures on nested paths.
+- Password prompting in automated setup.
+
+### Remaining Considerations
+- EFI partition formatting may fail if device busy; assumes pre-formatted.
+- Pool destruction requires clean system state (may need reboot between runs).
+- NVIDIA repo keys may need periodic updates.
+- Live environment kernel headers required for ZFS module building.
+
+All changes ensure the installer can run successfully in a Debian Trixie live environment with the specified configuration.
+
+## Date: 2026-04-20
+
+### Security and Prompting
+- Removed hardcoded root password seeding from BASE_INSTALL.
+- Removed hardcoded non-root password from FINALIZE.
+- FINALIZE now prompts for user password interactively, or consumes `ACABOS_USER_PASSWORD` for non-interactive runs.
+- Re-enabled confirmation gates (`prompt_confirm`) and removed debug response logging.
+- Added optional `gum`-based prompting with shell fallback.
+- Added `fzf`-based disk picker with live partition/signature preview.
+- PREFLIGHT now installs and requires both `gum` and `fzf`.
+- BASE_INSTALL now installs `gum` and `fzf` into the target runtime for recursive idempotent UX availability.
+
+### Stage UX and Recovery
+- INPUT stage now uses shared prompt helpers for disk selection, hostname, and username.
+- DISK_SAFETY typed confirmation now uses shared prompt helpers.
+- Stage failure recovery menu now uses shared prompt selection flow.
+
+### ABI Cohort Compatibility Primitive
+- PREFLIGHT now enforces a hard ABI cohort gate before destructive stages.
+- Gate checks running-kernel headers, backports origin for kernel/ZFS cohort, dracut presence, and exact ZFS module/userspace version match.
+- ABI incompatibility now fails fast with actionable diagnostics.
+
+### Boot Reliability
+- BOOT_CHAIN now registers EFI entries with explicit `initrd=` boot option.
+- BOOT_CHAIN now installs fallback UEFI loader at `/EFI/BOOT/BOOTX64.EFI`.
+- Probe logic now accepts both `initramfs-*` and `initramfs.img` artifact names.
+
+### Build Determinism and Locale
+- Added config-driven CUDA controls for mistral.rs and llama.cpp.
+- Added locale hardening (`LANG=C.UTF-8`, `LC_ALL=C.UTF-8`) globally and on chrooted APT paths.
+
+### Documentation and Releases
+- Updated README, architecture, stage reference, and contributing docs to match current behavior.
+- Documented fixed ZFS `ashift=12` policy (non-adaptive across NVMe/SATA drive classes).
+- Added deployment readiness and release readiness templates.
+- Published alpha/beta release artifacts and release notes in `release-artifacts/`.
+
+## Date: 2026-04-21
+
+### Canonical BOOT_CHAIN Alignment
+- Switched BOOT_CHAIN validation and generation flow to canonical bundled-ZBM behavior centered on `/EFI/zbm/zfsbootmenu.EFI`.
+- Fixed chroot command detection for `generate-zbm` by using `bash -lc 'command -v ...'`.
+- Added `systemd-boot-efi` to BOOT_CHAIN dependencies to ensure EFI stub availability for bundled image generation.
+- Added ESP remount after chroot unmount prior to EFI artifact validation.
+- Pruned non-authoritative `*backup*` artifacts under `/EFI/zbm` after generation to reduce rerun space pressure.
+- Hardened component initramfs validation to be pipefail-safe while still checking for `/init` and ZFS content.
+- Changed EFI NVRAM registration to best-effort behavior when EFI runtime variables are unavailable.
+
+### Doctor and Validation
+- Updated `INV-BOOT-001` in `doctor/acabos-doctor` to validate authoritative bundle presence at `/boot/efi/EFI/zbm/zfsbootmenu.EFI`.
+- Confirmed successful full install/resume progression through FINALIZE on `/dev/nvme0n1` for pool `ACABROOT-C2A8`.
+
+### Evidence and Packaging
+- Captured boot evidence: `efibootmgr -v`, PE/COFF verification of `/EFI/zbm/zfsbootmenu.EFI`, and `/EFI/zbm` directory listing.
+- Produced `0.1.0-beta.10` release package and checksum:
+  - `release-artifacts/acabos-installer-0.1.0-beta.10.tar.gz`
+  - `release-artifacts/acabos-installer-0.1.0-beta.10.tar.gz.sha256`
+- Added `beta.10` notes/readiness docs in both source docs and `release-artifacts` mirrors.

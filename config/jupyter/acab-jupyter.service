@@ -1,0 +1,14 @@
+[Unit]
+Description=ACABOS Jupyter Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/acabos/jupyter.env
+ExecStart=/bin/bash -lc 'test -n "${ACABOS_JUPYTER_USER:-}" || { echo "ACABOS_JUPYTER_USER is not set" >&2; exit 1; }; exec runuser -u "${ACABOS_JUPYTER_USER}" -- /opt/ai-venv/bin/jupyter lab --config=/etc/jupyter/jupyter_server_config.py'
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

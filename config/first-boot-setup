@@ -1,0 +1,191 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+
+log() {
+    printf '[first-boot] %s\n' "$*"
+}
+
+report_result() {
+    local name="$1"
+    local status="$2"
+    local detail="$3"
+    printf '%s\t%s\t%s\n' "$name" "$status" "$detail" >> /etc/acabos/runtime-readiness.tsv
+}
+
+smoke_start_enable_service() {
+    local svc="$1"
+    local wait_seconds="${2:-5}"
+
+    log "Validating service: ${svc}"
+    systemctl reset-failed "$svc" 2>/dev/null || true
+    if ! systemctl start "$svc"; then
+        report_result "$svc" "fail" "systemctl start failed"
+        journalctl -u "$svc" -n 50 --no-pager >> /etc/acabos/runtime-readiness.log 2>&1 || true
+        systemctl stop "$svc" 2>/dev/null || true
+        return 1
+    fi
+
+    sleep "$wait_seconds"
+    if systemctl is-active --quiet "$svc"; then
+        systemctl enable "$svc" >/dev/null 2>&1 || true
+        report_result "$svc" "pass" "started and enabled"
+        return 0
+    fi
+
+    report_result "$svc" "fail" "service did not become active"
+    journalctl -u "$svc" -n 50 --no-pager >> /etc/acabos/runtime-readiness.log 2>&1 || true
+    systemctl stop "$svc" 2>/dev/null || true
+    return 1
+}
+
+pull_container_image_for_service() {
+    local svc="$1"
+    local unit_path="/etc/containers/systemd/${svc}.container"
+    if [ ! -f "$unit_path" ]; then
+        report_result "$svc" "skip" "container unit not found"
+        return 1
+    fi
+
+    local image
+    image=$(grep '^Image=' "$unit_path" | cut -d= -f2-)
+    if [ -z "$image" ]; then
+        report_result "$svc" "fail" "image not declared"
+        return 1
+    fi
+
+    log "Pulling image for ${svc}: ${image}"
+    if podman pull "$image" >> /etc/acabos/runtime-readiness.log 2>&1; then
+        report_result "$svc:image" "pass" "$image"
+        return 0
+    fi
+
+    report_result "$svc:image" "fail" "$image"
+    return 1
+}
+
+skip_service() {
+    local name="$1"
+    local reason="$2"
+    report_result "$name" "skip" "$reason"
+}
+
+if [ -f /etc/acabos/first-boot-done ]; then
+    echo "First boot already completed. Exiting."
+    exit 0
+fi
+
+mkdir -p /etc/acabos
+: > /etc/acabos/runtime-readiness.tsv
+: > /etc/acabos/runtime-readiness.log
+
+log "Running ACABOS first-boot setup..."
+
+ACAB_GPU_DETECTED="false"
+ACAB_GPU_VENDOR="unknown"
+ACAB_GPU_MODEL="unknown"
+ACAB_GPU_COUNT="0"
+ACAB_GPU_SUPPORT_TIER="experimental"
+ACAB_GPU_RUNTIME_TARGET="unknown"
+ACAB_GPU_VALIDATION_POLICY="limited"
+
+if [ -f /etc/acabos/gpu-policy.env ]; then
+    # shellcheck disable=SC1091
+    . /etc/acabos/gpu-policy.env
+fi
+
+rm -f /etc/machine-id
+dbus-uuidgen --ensure=/etc/machine-id
+
+rm -f /etc/ssh/ssh_host_*
+dpkg-reconfigure openssh-server
+
+if [ ! -f /etc/zfs/zpool.cache ]; then
+    mkdir -p /etc/zfs
+    for pool in $(zpool list -H -o name 2>/dev/null | grep '^ACABROOT-'); do
+        zpool set cachefile=/etc/zfs/zpool.cache "$pool" 2>/dev/null || true
+    done
+fi
+
+if command -v generate-zbm >/dev/null 2>&1; then
+    generate-zbm 2>/dev/null || true
+fi
+
+log "Running runtime validation and service provisioning..."
+
+report_result "gpu_vendor" "pass" "$ACAB_GPU_VENDOR"
+report_result "gpu_support_tier" "pass" "$ACAB_GPU_SUPPORT_TIER"
+report_result "gpu_runtime_target" "pass" "$ACAB_GPU_RUNTIME_TARGET"
+report_result "gpu_validation_policy" "pass" "$ACAB_GPU_VALIDATION_POLICY"
+report_result "gpu_detected" "pass" "$ACAB_GPU_DETECTED"
+
+systemctl daemon-reload || true
+
+if [ "$ACAB_GPU_VALIDATION_POLICY" = "full" ] && command -v nvidia-ctk >/dev/null 2>&1; then
+    mkdir -p /etc/cdi
+    if nvidia-ctk cdi generate --output /etc/cdi/nvidia.yaml >> /etc/acabos/runtime-readiness.log 2>&1; then
+        report_result "cdi" "pass" "/etc/cdi/nvidia.yaml"
+    else
+        report_result "cdi" "fail" "nvidia-ctk cdi generate failed"
+    fi
+elif [ "$ACAB_GPU_VALIDATION_POLICY" = "full" ]; then
+    report_result "cdi" "skip" "nvidia-ctk not present"
+else
+    report_result "cdi" "skip" "GPU validation policy is ${ACAB_GPU_VALIDATION_POLICY}"
+fi
+
+if command -v podman >/dev/null 2>&1; then
+    if podman info >> /etc/acabos/runtime-readiness.log 2>&1; then
+        report_result "podman" "pass" "podman info ok"
+    else
+        report_result "podman" "fail" "podman info failed"
+    fi
+
+    if [ "$ACAB_GPU_VALIDATION_POLICY" = "full" ]; then
+        if /usr/local/bin/test-nvidia-container >> /etc/acabos/runtime-readiness.log 2>&1; then
+            report_result "gpu-container-smoke" "pass" "nvidia container runtime ok"
+        else
+            report_result "gpu-container-smoke" "fail" "nvidia container runtime failed"
+        fi
+    else
+        report_result "gpu-container-smoke" "skip" "policy=${ACAB_GPU_VALIDATION_POLICY}"
+    fi
+else
+    report_result "podman" "fail" "podman not installed"
+fi
+
+if systemctl daemon-reload >> /etc/acabos/runtime-readiness.log 2>&1; then
+    report_result "systemd-daemon-reload" "pass" "daemon-reload ok"
+else
+    report_result "systemd-daemon-reload" "fail" "daemon-reload failed"
+fi
+
+smoke_start_enable_service "ollama.service" 3 || true
+
+if pull_container_image_for_service "qdrant"; then
+    smoke_start_enable_service "qdrant.service" 6 || true
+fi
+
+if [ "$ACAB_GPU_VALIDATION_POLICY" = "full" ]; then
+    for svc in localai comfyui; do
+        if ! pull_container_image_for_service "$svc"; then
+            continue
+        fi
+        smoke_start_enable_service "$svc.service" 6 || true
+    done
+else
+    skip_service "localai:image" "policy=${ACAB_GPU_VALIDATION_POLICY}"
+    skip_service "localai.service" "policy=${ACAB_GPU_VALIDATION_POLICY}"
+    skip_service "comfyui:image" "policy=${ACAB_GPU_VALIDATION_POLICY}"
+    skip_service "comfyui.service" "policy=${ACAB_GPU_VALIDATION_POLICY}"
+fi
+
+if [ -f /etc/systemd/system/acab-jupyter.service ] && [ -f /etc/acabos/jupyter.env ]; then
+    report_result "acab-jupyter.service" "pass" "installed; disabled by default"
+else
+    report_result "acab-jupyter.service" "fail" "missing service or env file"
+fi
+
+date -u +%Y-%m-%dT%H:%M:%SZ > /etc/acabos/first-boot-done
+
+log "ACABOS first-boot setup complete."

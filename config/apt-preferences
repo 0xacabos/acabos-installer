@@ -1,0 +1,30 @@
+# APT pin priorities for the installed system.
+# Copied into chroot as /etc/apt/preferences.d/99-acabos-cohort by mmdebstrap --setup-hook.
+#
+# 900: Boot-critical cohort from trixie-backports (kernel, headers, ZFS, dracut, ZBM)
+# 850: NVIDIA ecosystem from CUDA repo (DKMS, driver, CUDA packages)
+# 500: Default from trixie
+# 100: Backports catch-all (non-cohort packages)
+Package: linux-image-* linux-headers-* zfs-* zfsutils-* libzfs* libzpool* libnvpair* libuutil* dracut zfsbootmenu
+Pin: release n=trixie-backports
+Pin-Priority: 900
+
+Package: nvidia-open-dkms nvidia-kernel-open-dkms nvidia-driver nvidia-kernel-* nvidia-*cuda*
+Pin: origin developer.download.nvidia.com
+Pin-Priority: 850
+
+Package: nvidia-container-toolkit*
+Pin: origin nvidia.github.io
+Pin-Priority: 850
+
+Package: initramfs-tools
+Pin: release *
+Pin-Priority: -1
+
+Package: *
+Pin: release n=trixie
+Pin-Priority: 500
+
+Package: *
+Pin: release n=trixie-backports
+Pin-Priority: 100

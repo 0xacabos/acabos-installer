@@ -1,0 +1,18 @@
+
+  ACABOS AI Workstation
+  Baseline AI Development Station
+
+  AI Services:
+    Ollama:           http://localhost:11434
+    ComfyUI:          http://localhost:8188
+    Qdrant:           http://localhost:6333
+    LocalAI:          http://localhost:8081
+    Jupyter:          http://localhost:8888
+
+  Quick Commands:
+    ai-services status    - Check AI service status
+    ai-python             - Python with ML stack
+    model-manager         - Download/manage models
+    gpu-benchmark         - Run GPU benchmarks
+    start-desktop         - Launch Sway desktop
+    nvidia                - Show GPU status

@@ -1,0 +1,5 @@
+ACTION=="add", DEVPATH=="/bus/pci/drivers/nvidia", RUN+="/bin/sh -c 'echo 1 > /proc/driver/nvidia/params'"
+KERNEL=="nvidia", GROUP="video", MODE="0666"
+KERNEL=="nvidia_uvm", GROUP="video", MODE="0666"
+KERNEL=="nvidia_modeset", GROUP="video", MODE="0666"
+KERNEL=="nvidia_drm", GROUP="video", MODE="0666"

@@ -1,0 +1,20 @@
+[Unit]
+Description=Whisper ASR Webservice
+After=local-fs.target
+
+[Container]
+Image=docker.io/onerahmet/openai-whisper-asr-webservice:latest-gpu
+ContainerName=whisper-asr
+PublishPort=9000:9000
+Volume=whisper-models:/root/.cache
+Environment=ASR_MODEL=large-v3
+Environment=ASR_ENGINE=faster_whisper
+Environment=CUDA_VISIBLE_DEVICES=0
+Device=nvidia.com/gpu=all
+
+[Service]
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

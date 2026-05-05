@@ -1,0 +1,17 @@
+[Unit]
+Description=Qdrant Vector Database
+After=local-fs.target
+
+[Container]
+Image=docker.io/qdrant/qdrant@sha256:dd76bf4f745b5d202c98b5712705b6c0efc6cf6e96c6a78b9769aaf1bea632dd
+ContainerName=qdrant
+PublishPort=6333:6333
+PublishPort=6334:6334
+Volume=qdrant-data:/qdrant/storage
+
+[Service]
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

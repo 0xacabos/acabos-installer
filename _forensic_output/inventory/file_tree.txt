@@ -1,0 +1,95 @@
+.
+acabos-install
+config/
+  ai-system-packages.list
+  ai-venv-requirements.txt
+  apt-preferences
+  apt-sources.list
+  apt-trust.conf
+  bashrc-aliases
+  cuda-env.sh
+  cuda-ldconfig.conf
+  cudnn.version
+  desktop-packages.list
+  dracut.conf.d/
+    zfs.conf
+  first-boot.service
+  first-boot-setup
+  issue
+  jupyter/
+    jupyter_server_config.py
+  manifest-template.jq
+  mistral.version
+  motd
+  nvidia-container-toolkit.list
+  nvidia-keyring.sha256
+  nvidia-modprobe/
+    nvidia.conf
+    nvidia-drm.conf
+    nvidia-uvm.conf
+  nvidia-power.service
+  nvidia-udev/
+    70-nvidia.rules
+  podman/
+    containers.conf
+    registries.conf
+    storage.conf
+  quadlets/
+    ai-services.pod
+    ai-toolbox.container
+    comfyui.container
+    localai.container
+    ollama.container
+    ollama-webui.container
+    qdrant.container
+    stable-diffusion.container
+    text-generation-webui.container
+    whisper-asr.container
+  ssh-hardening.conf
+  start-desktop
+  sudoers-acabos
+  sway/
+    config
+    config.d/
+      input
+      nvidia
+      output
+  sway-nvidia
+  sysctl/
+    99-hugepages.conf
+    99-performance.conf
+  waybar/
+    config
+    scripts/
+      nvidia.sh
+    style.css
+  zfs-tuning.conf
+  zfsbootmenu-config.yaml
+CONTRIBUTING.md
+docs/
+  architecture.md
+  stage-reference.md
+doctor/
+  acabos-doctor
+lib/
+  common.sh
+  detect_virt.sh
+  probes.sh
+  stage_ai.sh
+  stage_base_install.sh
+  stage_boot_chain.sh
+  stage_desktop.sh
+  stage_disk_safety.sh
+  stage_finalize.sh
+  stage_inference.sh
+  stage_input.sh
+  stage_nvidia_bringup.sh
+  stage_podman.sh
+  stage_preflight.sh
+  stage_validation.sh
+  stage_zfs_create.sh
+  topology.sh
+README.md
+state/
+  logs/
+  manifest/

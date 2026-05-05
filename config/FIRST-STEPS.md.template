@@ -1,0 +1,132 @@
+# ACABOS First Steps
+
+This file explains how to use the supported tooling installed on this system.
+
+## Hardware Posture
+
+- GPU Vendor: `__ACAB_GPU_VENDOR__`
+- GPU Support Tier: `__ACAB_GPU_TIER__`
+- GPU Runtime Target: `__ACAB_GPU_RUNTIME__`
+
+## Runtime Readiness
+
+First-boot provisioning writes:
+
+- `/etc/acabos/runtime-readiness.tsv`
+- `/etc/acabos/runtime-readiness.log`
+
+Review them first:
+
+```bash
+sudo cat /etc/acabos/runtime-readiness.tsv
+sudo less /etc/acabos/runtime-readiness.log
+```
+
+## Ollama
+
+Check status:
+
+```bash
+systemctl status ollama.service --no-pager
+```
+
+Start or enable if needed:
+
+```bash
+sudo systemctl start ollama.service
+sudo systemctl enable ollama.service
+```
+
+## mistral.rs
+
+Profiles live in:
+
+```bash
+/etc/acabos/inference/
+```
+
+An example profile was installed at:
+
+```bash
+/etc/acabos/inference/example.env
+```
+
+Start a profile with:
+
+```bash
+sudo systemctl start acab-inference@<profile>.service
+sudo systemctl status acab-inference@<profile>.service --no-pager
+```
+
+Or use the helper:
+
+```bash
+model-manager serve <profile>
+```
+
+## Jupyter
+
+Jupyter is local-only and disabled by default.
+
+Generated token:
+
+```text
+__ACAB_JUPYTER_TOKEN__
+```
+
+Enable and start:
+
+```bash
+sudo systemctl enable acab-jupyter.service
+sudo systemctl start acab-jupyter.service
+```
+
+Access URL:
+
+```text
+http://127.0.0.1:8888
+```
+
+Notebook root:
+
+```text
+/home/__ACAB_USERNAME__/workspace/notebooks
+```
+
+## Containerized Services
+
+Check retained services:
+
+```bash
+ai-stack status
+```
+
+Start them all:
+
+```bash
+sudo ai-stack up
+```
+
+Or individually:
+
+```bash
+sudo systemctl start qdrant.service
+sudo systemctl start localai.service
+sudo systemctl start comfyui.service
+```
+
+Useful endpoints:
+
+- Qdrant: `http://localhost:6333`
+- LocalAI: `http://localhost:8081`
+- ComfyUI: `http://localhost:8188`
+
+## Logs
+
+```bash
+journalctl -u ollama.service -f
+journalctl -u qdrant.service -f
+journalctl -u localai.service -f
+journalctl -u comfyui.service -f
+journalctl -u acab-jupyter.service -f
+```

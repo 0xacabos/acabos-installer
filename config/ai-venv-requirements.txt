@@ -1,0 +1,59 @@
+# Python ML packages for /opt/ai-venv (installed via uv).
+# PyTorch installed separately from CUDA wheel index first.
+wheel
+setuptools
+
+# Core ML
+transformers
+accelerate
+datasets
+evaluate
+bitsandbytes
+optimum
+peft
+trl
+deepspeed
+
+# LangChain
+langchain
+langchain-community
+langchain-huggingface
+
+# Embeddings/Models
+sentence-transformers
+safetensors
+huggingface-hub
+
+# Experiment tracking
+tensorboard
+wandb
+
+# Jupyter
+jupyter
+jupyterlab
+notebook
+ipython
+ipykernel
+
+# Python dev tools
+black
+isort
+autoflake
+mypy
+pylint
+
+# Testing
+pytest
+pytest-cov
+
+# Networking/API
+httpx
+requests
+pydantic
+fastapi
+uvicorn
+
+# UI/Demo
+gradio
+streamlit
+chainlit

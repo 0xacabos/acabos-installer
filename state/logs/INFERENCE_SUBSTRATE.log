@@ -1,0 +1,258 @@
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T13:26:57Z
+═══════════════════════════════════════════
+
+2026-04-19T13:26:57Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-19T13:26:57Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-19T13:26:57Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-19T13:26:57Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-19T13:31:18Z [INFO]   Verifying cuDNN SHA256...
+2026-04-19T13:31:21Z [INFO]   cuDNN SHA256 verified.
+2026-04-19T13:31:35Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-19T13:31:35Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-19T13:31:35Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-19T13:32:01Z [INFO]   Rust installed: 1.95.0
+2026-04-19T13:32:01Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-19T13:32:01Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-19T13:32:01Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-19T13:32:01Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-19T13:32:55Z [ERR ] cargo install mistralrs-cli failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T13:33:33Z
+═══════════════════════════════════════════
+
+2026-04-19T13:33:33Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-19T13:33:33Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-19T13:33:33Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-19T13:33:33Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-19T13:36:56Z [INFO]   Verifying cuDNN SHA256...
+2026-04-19T13:36:59Z [INFO]   cuDNN SHA256 verified.
+2026-04-19T13:37:05Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-19T13:37:06Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-19T13:37:06Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-19T13:37:09Z [INFO]   Rust installed: 1.95.0
+2026-04-19T13:37:09Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-19T13:37:09Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-19T13:37:09Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-19T13:37:09Z [INFO]   CUDA compute capability: 89
+2026-04-19T13:37:09Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-19T13:37:50Z [ERR ] cargo install mistralrs-cli failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T13:38:03Z
+═══════════════════════════════════════════
+
+2026-04-19T13:38:03Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-19T13:38:03Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-19T13:38:03Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-19T13:38:03Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-19T13:41:31Z [INFO]   Verifying cuDNN SHA256...
+2026-04-19T13:41:34Z [INFO]   cuDNN SHA256 verified.
+2026-04-19T13:41:40Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-19T13:41:40Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-19T13:41:40Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-19T13:41:43Z [INFO]   Rust installed: 1.95.0
+2026-04-19T13:41:43Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-19T13:41:43Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-19T13:41:43Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-19T13:41:43Z [INFO]   CUDA compute capability: 89
+2026-04-19T13:41:43Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-19T13:42:24Z [ERR ] cargo install mistralrs-cli failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T13:42:52Z
+═══════════════════════════════════════════
+
+2026-04-19T13:42:52Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-19T13:42:52Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-19T13:42:52Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-19T13:42:52Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-19T13:46:28Z [INFO]   Verifying cuDNN SHA256...
+2026-04-19T13:46:31Z [INFO]   cuDNN SHA256 verified.
+2026-04-19T13:46:37Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-19T13:46:37Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-19T13:46:37Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-19T13:46:40Z [INFO]   Rust installed: 1.95.0
+2026-04-19T13:46:40Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-19T13:46:40Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-19T13:46:40Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-19T13:46:40Z [INFO]   CUDA compute capability: 89
+2026-04-19T13:46:40Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-19T14:09:25Z [INFO]   mistral.rs binary built: 293985728 bytes
+2026-04-19T14:09:26Z [INFO]   Installed to /opt/acab/bin/mistral-rs.
+2026-04-19T14:09:26Z [INFO] Phase 3 complete: mistral.rs built and installed.
+2026-04-19T14:09:26Z [INFO] Phase 4: Creating model manifest...
+2026-04-19T14:09:26Z [INFO] Model manifest created.
+2026-04-19T14:09:26Z [INFO] Phase 5: Creating systemd service unit...
+2026-04-19T14:09:26Z [INFO] Service unit created.
+2026-04-19T14:09:26Z [INFO] INFERENCE_SUBSTRATE complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T07:09:48Z
+═══════════════════════════════════════════
+
+2026-04-20T07:09:48Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-20T07:09:48Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-20T07:09:48Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-20T07:09:48Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-20T07:12:45Z [INFO]   Verifying cuDNN SHA256...
+2026-04-20T07:12:48Z [INFO]   cuDNN SHA256 verified.
+2026-04-20T07:13:03Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-20T07:13:05Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-20T07:13:05Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-20T07:13:31Z [INFO]   Rust installed: 1.95.0
+2026-04-20T07:13:31Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-20T07:13:31Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-20T07:13:31Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-20T07:13:31Z [INFO]   CUDA compute capability: 89
+2026-04-20T07:13:31Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-20T07:35:41Z [INFO]   mistral.rs binary built: 293989728 bytes
+2026-04-20T07:35:42Z [INFO]   Installed to /opt/acab/bin/mistral-rs.
+2026-04-20T07:35:42Z [INFO] Phase 3 complete: mistral.rs built and installed.
+2026-04-20T07:35:42Z [INFO] Phase 4: Creating model manifest...
+2026-04-20T07:35:42Z [INFO] Model manifest created.
+2026-04-20T07:35:42Z [INFO] Phase 5: Creating systemd service unit...
+2026-04-20T07:35:42Z [INFO] Service unit created.
+2026-04-20T07:35:42Z [INFO] INFERENCE_SUBSTRATE complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T10:20:07Z
+═══════════════════════════════════════════
+
+2026-04-20T10:20:07Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-20T10:20:07Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-20T10:20:07Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-20T10:20:07Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-20T10:23:10Z [INFO]   Verifying cuDNN SHA256...
+2026-04-20T10:23:12Z [INFO]   cuDNN SHA256 verified.
+2026-04-20T10:23:25Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-20T10:23:25Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-20T10:23:25Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-20T10:23:51Z [INFO]   Rust installed: 1.95.0
+2026-04-20T10:23:51Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-20T10:23:51Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-20T10:23:51Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-20T10:23:51Z [INFO]   CUDA compute capability: 89
+2026-04-20T10:23:51Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-20T10:45:17Z [INFO]   mistral.rs binary built: 293989728 bytes
+2026-04-20T10:45:18Z [INFO]   Installed to /opt/acab/bin/mistral-rs.
+2026-04-20T10:45:18Z [INFO] Phase 3 complete: mistral.rs built and installed.
+2026-04-20T10:45:18Z [INFO] Phase 4: Creating model manifest...
+2026-04-20T10:45:18Z [INFO] Model manifest created.
+2026-04-20T10:45:18Z [INFO] Phase 5: Creating systemd service unit...
+2026-04-20T10:45:18Z [INFO] Service unit created.
+2026-04-20T10:45:18Z [INFO] INFERENCE_SUBSTRATE complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T22:24:54Z
+═══════════════════════════════════════════
+
+2026-04-20T22:24:54Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-20T22:24:54Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-20T22:24:54Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-20T22:24:54Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-20T22:27:51Z [INFO]   Verifying cuDNN SHA256...
+2026-04-20T22:27:54Z [INFO]   cuDNN SHA256 verified.
+2026-04-20T22:28:07Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-20T22:28:07Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-20T22:28:07Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-20T22:28:33Z [INFO]   Rust installed: 1.95.0
+2026-04-20T22:28:33Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-20T22:28:33Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-20T22:28:33Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-20T22:28:33Z [INFO]   CUDA compute capability: 89
+2026-04-20T22:28:33Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-20T22:49:14Z [INFO]   mistral.rs binary built: 293993704 bytes
+2026-04-20T22:49:15Z [INFO]   Installed to /opt/acab/bin/mistral-rs.
+2026-04-20T22:49:15Z [INFO] Phase 3 complete: mistral.rs built and installed.
+2026-04-20T22:49:15Z [INFO] Phase 4: Creating model manifest...
+2026-04-20T22:49:15Z [INFO] Model manifest created.
+2026-04-20T22:49:15Z [INFO] Phase 5: Creating systemd service unit...
+2026-04-20T22:49:15Z [INFO] Service unit created.
+2026-04-20T22:49:15Z [INFO] INFERENCE_SUBSTRATE complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T01:15:21Z
+═══════════════════════════════════════════
+
+2026-04-21T01:15:21Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-21T01:15:21Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-21T01:15:21Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-21T01:15:21Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-21T01:18:23Z [INFO]   Verifying cuDNN SHA256...
+2026-04-21T01:18:26Z [INFO]   cuDNN SHA256 verified.
+2026-04-21T01:18:39Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-21T01:18:39Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-21T01:18:39Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-21T01:19:04Z [INFO]   Rust installed: 1.95.0
+2026-04-21T01:19:04Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-21T01:19:04Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-21T01:19:04Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-21T01:19:04Z [INFO]   CUDA compute capability: 89
+2026-04-21T01:19:04Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-21T01:40:12Z [INFO]   mistral.rs binary built: 293993704 bytes
+2026-04-21T01:40:13Z [INFO]   Installed to /opt/acab/bin/mistral-rs.
+2026-04-21T01:40:13Z [INFO] Phase 3 complete: mistral.rs built and installed.
+2026-04-21T01:40:13Z [INFO] Phase 4: Creating model manifest...
+2026-04-21T01:40:13Z [INFO] Model manifest created.
+2026-04-21T01:40:13Z [INFO] Phase 5: Creating systemd service unit...
+2026-04-21T01:40:13Z [INFO] Service unit created.
+2026-04-21T01:40:13Z [INFO] INFERENCE_SUBSTRATE complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T11:23:01Z
+═══════════════════════════════════════════
+
+2026-04-21T11:23:01Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-21T11:23:01Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-21T11:23:01Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-21T11:23:01Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-21T11:26:18Z [INFO]   Verifying cuDNN SHA256...
+2026-04-21T11:26:21Z [INFO]   cuDNN SHA256 verified.
+2026-04-21T11:26:34Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-21T11:26:34Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-21T11:26:34Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-21T11:27:01Z [INFO]   Rust installed: 1.95.0
+2026-04-21T11:27:01Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-21T11:27:01Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-21T11:27:01Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-21T11:27:01Z [INFO]   CUDA compute capability: 89
+2026-04-21T11:27:01Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-21T11:52:54Z [INFO]   mistral.rs binary built: 293983448 bytes
+2026-04-21T11:52:55Z [INFO]   Installed to /opt/acab/bin/mistral-rs.
+2026-04-21T11:52:55Z [INFO] Phase 3 complete: mistral.rs built and installed.
+2026-04-21T11:52:55Z [INFO] Phase 4: Creating model manifest...
+2026-04-21T11:52:55Z [INFO] Model manifest created.
+2026-04-21T11:52:55Z [INFO] Phase 5: Creating systemd service unit...
+2026-04-21T11:52:55Z [INFO] Service unit created.
+2026-04-21T11:52:55Z [INFO] INFERENCE_SUBSTRATE complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T13:15:56Z
+═══════════════════════════════════════════
+
+2026-04-21T13:15:56Z [INFO] Starting stage: INFERENCE_SUBSTRATE
+2026-04-21T13:15:56Z [INFO] === INFERENCE_SUBSTRATE ===
+2026-04-21T13:15:56Z [INFO] Phase 1: Installing cuDNN 9.19.0...
+2026-04-21T13:15:56Z [INFO]   Downloading cuDNN local repo installer...
+2026-04-21T13:19:09Z [INFO]   Verifying cuDNN SHA256...
+2026-04-21T13:19:12Z [INFO]   cuDNN SHA256 verified.
+2026-04-21T13:19:26Z [INFO]   cuDNN installed: /mnt/install/usr/lib/x86_64-linux-gnu/libcudnn.so
+2026-04-21T13:19:26Z [INFO] Phase 1 complete: cuDNN installed.
+2026-04-21T13:19:26Z [INFO] Phase 2: Installing Rust toolchain...
+2026-04-21T13:19:51Z [INFO]   Rust installed: 1.95.0
+2026-04-21T13:19:51Z [INFO] Phase 2 complete: Rust toolchain installed.
+2026-04-21T13:19:51Z [INFO] Phase 3: Building mistral.rs 0.8.1...
+2026-04-21T13:19:51Z [INFO]   Features: cuda cudnn flash-attn
+2026-04-21T13:19:51Z [INFO]   CUDA compute capability: 89
+2026-04-21T13:19:51Z [INFO]   This will take 10-30 minutes depending on hardware.
+2026-04-21T13:43:45Z [INFO]   mistral.rs binary built: 293995192 bytes
+2026-04-21T13:43:46Z [INFO]   Installed to /opt/acab/bin/mistral-rs.
+2026-04-21T13:43:46Z [INFO] Phase 3 complete: mistral.rs built and installed.
+2026-04-21T13:43:46Z [INFO] Phase 4: Creating model manifest...
+2026-04-21T13:43:47Z [INFO] Model manifest created.
+2026-04-21T13:43:47Z [INFO] Phase 5: Creating systemd service unit...
+2026-04-21T13:43:47Z [INFO] Service unit created.
+2026-04-21T13:43:47Z [INFO] INFERENCE_SUBSTRATE complete.

@@ -1,0 +1,22 @@
+[Unit]
+Description=Text Generation WebUI (oobabooga)
+After=local-fs.target
+
+[Container]
+Image=ghcr.io/oobabooga/text-generation-webui:latest
+ContainerName=text-generation-webui
+PublishPort=7861:7861
+PublishPort=5000:5000
+Volume=tgwebui-models:/app/models
+Volume=tgwebui-loras:/app/loras
+Volume=tgwebui-extensions:/app/extensions
+Environment=CUDA_VISIBLE_DEVICES=0
+Environment=CLI_ARGS=--listen --port 7861 --api
+Device=nvidia.com/gpu=all
+
+[Service]
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

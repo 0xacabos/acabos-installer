@@ -1,0 +1,21 @@
+[Unit]
+Description=Stable Diffusion WebUI
+After=local-fs.target
+
+[Container]
+Image=docker.io/universonic/stable-diffusion-webui:latest
+ContainerName=stable-diffusion
+PublishPort=7860:7860
+Volume=sd-models:/stable-diffusion-webui/models
+Volume=sd-outputs:/stable-diffusion-webui/outputs
+Volume=sd-extensions:/stable-diffusion-webui/extensions
+Environment=CUDA_VISIBLE_DEVICES=0
+Environment=COMMANDLINE_ARGS=--listen --port 7860 --xformers --enable-insecure-extension-access
+Device=nvidia.com/gpu=all
+
+[Service]
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

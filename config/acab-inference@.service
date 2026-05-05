@@ -1,0 +1,19 @@
+[Unit]
+Description=ACABOS Local Inference Profile (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/acabos/inference/%i.env
+ExecStart=/bin/bash -lc 'test -n "${ACAB_MISTRAL_SERVE_ARGS:-}" || { echo "ACAB_MISTRAL_SERVE_ARGS is not set" >&2; exit 1; }; exec /opt/acab/bin/mistral-rs serve ${ACAB_MISTRAL_SERVE_ARGS}'
+Restart=on-failure
+RestartSec=5
+WorkingDirectory=/opt/acab
+LimitMEMLOCK=infinity
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/acab/state /opt/acab/logs /opt/acab/models
+
+[Install]
+WantedBy=multi-user.target

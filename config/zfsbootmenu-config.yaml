@@ -1,0 +1,20 @@
+# ZFSBootMenu generate-zbm configuration.
+# Installed into chroot /etc/zfsbootmenu/config.yaml during BOOT_CHAIN.
+Global:
+  ManageImages: true
+  BootMountPoint: /boot/efi
+  DracutConfDir: /etc/zfsbootmenu/dracut.conf.d
+
+Components:
+  Enabled: true
+  ImageDir: /boot/efi/EFI/zbm
+  Versions: false
+
+EFI:
+  Enabled: true
+  ImageDir: /boot/efi/EFI/zbm
+  Versions: false
+
+Kernel:
+  Prefix: zfsbootmenu
+  CommandLine: "rd.debug loglevel=7 console=tty0 zbm.show zbm.timeout=5"

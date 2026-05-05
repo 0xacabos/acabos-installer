@@ -1,0 +1,1 @@
+rd.debug loglevel=7 rd.shell rd.break=pre-mount panic=10 console=tty0 console=ttyS0,115200n8 zbm.show zbm.timeout=10

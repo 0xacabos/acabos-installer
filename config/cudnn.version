@@ -1,0 +1,11 @@
+# cuDNN local repo installer pinning
+# NVIDIA currently ships the validated local cuDNN installer for Debian 12 packaging.
+# ACABOS uses that local repo payload on Debian 13 and validates it against the CUDA 13.2 host toolchain.
+# Update version and SHA256 only after the full ACABOS CUDA/cuDNN/runtime matrix is revalidated.
+CUDNN_VERSION="9.19.0"
+CUDNN_LOCAL_REPO="cudnn-local-repo-debian12-9.19.0_1.0-1_amd64.deb"
+CUDNN_URL="https://developer.download.nvidia.com/compute/cudnn/9.19.0/local_installers/cudnn-local-repo-debian12-9.19.0_1.0-1_amd64.deb"
+CUDNN_SHA256="b2a549818af15d92c728414aaff152f48dbbfbf5d9d80e87d8ff050c2b2efd23"
+CUDNN_META_PACKAGE="cudnn9-cuda-13"
+CUDNN_GPG_KEY="cudnn-local-19C4FE7D-keyring.gpg"
+CUDNN_REPO_DIR="/var/cudnn-local-repo-debian12-9.19.0"

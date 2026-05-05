@@ -1,0 +1,551 @@
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:02:54Z
+═══════════════════════════════════════════
+
+2026-04-18T15:02:54Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:02:54Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:02:54Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:02:54Z [ERR ] Confirmation did not match 'nvme-eui.0025382b41a04079'. Aborting.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:03:07Z
+═══════════════════════════════════════════
+
+2026-04-18T15:03:07Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:03:07Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:03:07Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:03:07Z [ERR ] Confirmation did not match 'nvme-eui.0025382b41a04079'. Aborting.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:03:19Z
+═══════════════════════════════════════════
+
+2026-04-18T15:03:19Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:03:19Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:03:19Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:03:19Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:03:20Z [INFO] Disk wiped.
+2026-04-18T15:03:20Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:03:20Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:04:34Z
+═══════════════════════════════════════════
+
+2026-04-18T15:04:34Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:04:34Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:04:34Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:04:34Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:04:35Z [INFO] Disk wiped.
+2026-04-18T15:04:35Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:04:35Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:15:23Z
+═══════════════════════════════════════════
+
+2026-04-18T15:15:23Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:15:23Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:15:23Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:15:23Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:15:24Z [INFO] Disk wiped.
+2026-04-18T15:15:24Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:15:24Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:21:32Z
+═══════════════════════════════════════════
+
+2026-04-18T15:21:32Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:21:32Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:21:32Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:21:32Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:21:33Z [INFO] Disk wiped.
+2026-04-18T15:21:33Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:21:33Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:21:59Z
+═══════════════════════════════════════════
+
+2026-04-18T15:21:59Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:21:59Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:21:59Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:21:59Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:22:00Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:22:00Z [INFO] Disk wiped.
+2026-04-18T15:22:00Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:22:00Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:22:00Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:22:22Z
+═══════════════════════════════════════════
+
+2026-04-18T15:22:22Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:22:22Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:22:22Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:22:22Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:22:23Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:22:23Z [INFO] Disk wiped.
+2026-04-18T15:22:23Z [INFO] Destroying any remaining ZFS pools on the disk...
+2026-04-18T15:22:23Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:22:23Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:22:23Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:22:42Z
+═══════════════════════════════════════════
+
+2026-04-18T15:22:42Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:22:42Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:22:42Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:22:42Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:22:43Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:22:43Z [INFO] Disk wiped.
+2026-04-18T15:22:43Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:22:43Z [INFO] Destroying imported pool: ACABROOT-AAE6
+2026-04-18T15:22:43Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:22:43Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:22:43Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:27:46Z
+═══════════════════════════════════════════
+
+2026-04-18T15:27:46Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:27:46Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:27:46Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:27:46Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:27:47Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:27:47Z [INFO] Disk wiped.
+2026-04-18T15:27:47Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:27:47Z [INFO] Destroying imported pool: ACABROOT-CAB0
+2026-04-18T15:27:47Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:27:47Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:27:47Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:28:06Z
+═══════════════════════════════════════════
+
+2026-04-18T15:28:06Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:28:06Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:28:06Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:28:06Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:28:07Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:28:07Z [INFO] Disk wiped.
+2026-04-18T15:28:07Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:28:07Z [INFO] Destroying imported pool: ACABROOT-696B
+2026-04-18T15:28:07Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:28:07Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:28:07Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:30:08Z
+═══════════════════════════════════════════
+
+2026-04-18T15:30:08Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:30:08Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:30:08Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:30:08Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:30:09Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:30:09Z [INFO] Disk wiped.
+2026-04-18T15:30:09Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:30:09Z [INFO] Destroying imported pool: ACABROOT-8CC5
+2026-04-18T15:30:09Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:30:09Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:30:09Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:30:56Z
+═══════════════════════════════════════════
+
+2026-04-18T15:30:56Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:30:56Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:30:56Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:30:56Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:30:57Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:30:57Z [INFO] Disk wiped.
+2026-04-18T15:30:57Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:30:57Z [INFO] Destroying imported pool: ACABROOT-7BA3
+2026-04-18T15:30:57Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:30:57Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:30:57Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:31:12Z
+═══════════════════════════════════════════
+
+2026-04-18T15:31:12Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:31:12Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:31:12Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:31:12Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:31:13Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:31:13Z [INFO] Disk wiped.
+2026-04-18T15:31:13Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:31:13Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:31:13Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:31:13Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:31:36Z
+═══════════════════════════════════════════
+
+2026-04-18T15:31:36Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:31:36Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:31:36Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:31:36Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:31:37Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:31:37Z [INFO] Disk wiped.
+2026-04-18T15:31:37Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:31:37Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:31:37Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:31:37Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:32:04Z
+═══════════════════════════════════════════
+
+2026-04-18T15:32:04Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:32:04Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:32:04Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:32:04Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:32:05Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:32:05Z [INFO] Disk wiped.
+2026-04-18T15:32:05Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:32:05Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:32:05Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:32:05Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:32:26Z
+═══════════════════════════════════════════
+
+2026-04-18T15:32:26Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:32:26Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:32:26Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:32:26Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:32:27Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:32:27Z [INFO] Disk wiped.
+2026-04-18T15:32:27Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:32:27Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:32:27Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:32:27Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:33:07Z
+═══════════════════════════════════════════
+
+2026-04-18T15:33:07Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:33:07Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:33:07Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:33:07Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:33:08Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:33:08Z [INFO] Disk wiped.
+2026-04-18T15:33:08Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:33:08Z [INFO] Destroying imported pool: ACABROOT-9443
+2026-04-18T15:33:08Z [WARN] Failed to destroy pool ACABROOT-9443
+2026-04-18T15:33:08Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:33:08Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:33:08Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:33:50Z
+═══════════════════════════════════════════
+
+2026-04-18T15:33:50Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:33:50Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:33:50Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:33:50Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:33:51Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:33:51Z [INFO] Disk wiped.
+2026-04-18T15:33:51Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:33:51Z [INFO] Exporting pool: ACABROOT-9443
+2026-04-18T15:33:51Z [WARN] Failed to export pool ACABROOT-9443
+2026-04-18T15:33:51Z [INFO] Destroying pool: ACABROOT-9443
+2026-04-18T15:33:51Z [WARN] Failed to destroy pool ACABROOT-9443
+2026-04-18T15:33:51Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:33:51Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:33:51Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:34:21Z
+═══════════════════════════════════════════
+
+2026-04-18T15:34:21Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:34:21Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:34:21Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:34:21Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:34:22Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:34:22Z [INFO] Disk wiped.
+2026-04-18T15:34:22Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:34:22Z [INFO] Unmounting pool mountpoints for: ACABROOT-9443
+2026-04-18T15:34:22Z [INFO] Exporting pool: ACABROOT-9443
+2026-04-18T15:34:22Z [INFO] Destroying pool: ACABROOT-9443
+2026-04-18T15:34:22Z [WARN] Failed to destroy pool ACABROOT-9443
+2026-04-18T15:34:22Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:34:22Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:34:22Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:35:36Z
+═══════════════════════════════════════════
+
+2026-04-18T15:35:36Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:35:36Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:35:36Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:35:36Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:35:37Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:35:37Z [INFO] Disk wiped.
+2026-04-18T15:35:37Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:35:37Z [INFO] Unmounting pool mountpoints for: ACABROOT-7798
+2026-04-18T15:35:37Z [INFO] Exporting pool: ACABROOT-7798
+2026-04-18T15:35:37Z [INFO] Destroying pool: ACABROOT-7798
+2026-04-18T15:35:37Z [WARN] Failed to destroy pool ACABROOT-7798
+2026-04-18T15:35:37Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:35:37Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:35:37Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:36:57Z
+═══════════════════════════════════════════
+
+2026-04-18T15:36:57Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:36:57Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:36:57Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:36:57Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:36:58Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:36:58Z [INFO] Disk wiped.
+2026-04-18T15:36:58Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:36:58Z [INFO] Unmounting pool mountpoints for: ACABROOT-D691
+2026-04-18T15:36:58Z [INFO] Exporting pool: ACABROOT-D691
+2026-04-18T15:36:58Z [INFO] Destroying pool: ACABROOT-D691
+2026-04-18T15:36:58Z [WARN] Failed to destroy pool ACABROOT-D691
+2026-04-18T15:36:58Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:36:58Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:36:58Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:40:10Z
+═══════════════════════════════════════════
+
+2026-04-18T15:40:10Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:40:10Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:40:10Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:40:10Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:40:11Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:40:11Z [INFO] Disk wiped.
+2026-04-18T15:40:11Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:40:11Z [INFO] Unmounting pool mountpoints for: ACABROOT-05B8
+2026-04-18T15:40:11Z [INFO] Exporting pool: ACABROOT-05B8
+2026-04-18T15:40:11Z [WARN] Failed to export pool ACABROOT-05B8
+2026-04-18T15:40:11Z [INFO] Destroying pool: ACABROOT-05B8
+2026-04-18T15:40:11Z [WARN] Failed to destroy pool ACABROOT-05B8
+2026-04-18T15:40:11Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:40:11Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:40:11Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:41:07Z
+═══════════════════════════════════════════
+
+2026-04-18T15:41:07Z [INFO] Starting stage: DISK_SAFETY
+2026-04-18T15:41:07Z [INFO] === DISK_SAFETY ===
+2026-04-18T15:41:07Z [INFO] Target disk verified: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:41:07Z [INFO] Wiping disk: /dev/disk/by-id/nvme-eui.0025382b41a04079
+2026-04-18T15:41:08Z [WARN] wipefs reported non-fatal error
+2026-04-18T15:41:08Z [INFO] Disk wiped.
+2026-04-18T15:41:08Z [INFO] Destroying any imported ZFS pools...
+2026-04-18T15:41:08Z [INFO] Unmounting pool mountpoints for: ACABROOT-05B8
+2026-04-18T15:41:08Z [WARN] Failed to unmount /mnt/install
+2026-04-18T15:41:08Z [INFO] Exporting pool: ACABROOT-05B8
+2026-04-18T15:41:08Z [WARN] Failed to export pool ACABROOT-05B8
+2026-04-18T15:41:08Z [INFO] Destroying pool: ACABROOT-05B8
+2026-04-18T15:41:08Z [WARN] Failed to destroy pool ACABROOT-05B8
+2026-04-18T15:41:08Z [INFO] Verifying no other devices were affected...
+2026-04-18T15:41:08Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-18T15:41:08Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T06:40:55Z
+═══════════════════════════════════════════
+
+2026-04-19T06:40:55Z [INFO] Starting stage: DISK_SAFETY
+2026-04-19T06:40:55Z [INFO] === DISK_SAFETY ===
+2026-04-19T06:40:55Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-19T06:40:55Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-19T06:40:57Z [INFO] Disk wiped.
+2026-04-19T06:40:57Z [INFO] Destroying any imported ZFS pools...
+2026-04-19T06:40:57Z [INFO] Verifying no other devices were affected...
+2026-04-19T06:40:57Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T06:31:11Z
+═══════════════════════════════════════════
+
+2026-04-20T06:31:11Z [INFO] Starting stage: DISK_SAFETY
+2026-04-20T06:31:11Z [INFO] === DISK_SAFETY ===
+2026-04-20T06:31:11Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T06:31:11Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T06:31:13Z [INFO] Disk wiped.
+2026-04-20T06:31:13Z [INFO] Destroying any imported ZFS pools...
+2026-04-20T06:31:13Z [INFO] Verifying no other devices were affected...
+2026-04-20T06:31:13Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T09:39:53Z
+═══════════════════════════════════════════
+
+2026-04-20T09:39:53Z [INFO] Starting stage: DISK_SAFETY
+2026-04-20T09:39:53Z [INFO] === DISK_SAFETY ===
+2026-04-20T09:39:53Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T09:39:53Z [ERR ] Confirmation did not match 'nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A'. Aborting.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T09:40:52Z
+═══════════════════════════════════════════
+
+2026-04-20T09:40:52Z [INFO] Starting stage: DISK_SAFETY
+2026-04-20T09:40:52Z [INFO] === DISK_SAFETY ===
+2026-04-20T09:40:52Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T09:40:52Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T09:40:56Z [INFO] Disk wiped.
+2026-04-20T09:40:56Z [INFO] Destroying any imported ZFS pools...
+2026-04-20T09:40:56Z [INFO] Verifying no other devices were affected...
+2026-04-20T09:40:56Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T09:41:33Z
+═══════════════════════════════════════════
+
+2026-04-20T09:41:33Z [INFO] Starting stage: DISK_SAFETY
+2026-04-20T09:41:33Z [INFO] === DISK_SAFETY ===
+2026-04-20T09:41:33Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T09:41:33Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T09:41:37Z [WARN] wipefs reported non-fatal error
+2026-04-20T09:41:37Z [INFO] Disk wiped.
+2026-04-20T09:41:37Z [INFO] Destroying any imported ZFS pools...
+2026-04-20T09:41:37Z [INFO] Unmounting pool mountpoints for: ACABROOT-4690
+2026-04-20T09:41:37Z [WARN] Failed to unmount /mnt/install
+2026-04-20T09:41:37Z [INFO] Exporting pool: ACABROOT-4690
+2026-04-20T09:41:37Z [INFO] Destroying pool: ACABROOT-4690
+2026-04-20T09:41:37Z [WARN] Failed to destroy pool ACABROOT-4690
+2026-04-20T09:41:37Z [INFO] Verifying no other devices were affected...
+2026-04-20T09:41:37Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-20T09:41:37Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T09:42:31Z
+═══════════════════════════════════════════
+
+2026-04-20T09:42:31Z [INFO] Starting stage: DISK_SAFETY
+2026-04-20T09:42:31Z [INFO] === DISK_SAFETY ===
+2026-04-20T09:42:31Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T09:42:31Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T09:42:35Z [INFO] Disk wiped.
+2026-04-20T09:42:35Z [INFO] Destroying any imported ZFS pools...
+2026-04-20T09:42:35Z [INFO] Verifying no other devices were affected...
+2026-04-20T09:42:35Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T21:44:42Z
+═══════════════════════════════════════════
+
+2026-04-20T21:44:42Z [INFO] Starting stage: DISK_SAFETY
+2026-04-20T21:44:42Z [INFO] === DISK_SAFETY ===
+2026-04-20T21:44:42Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T21:44:42Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T21:44:48Z [INFO] Disk wiped.
+2026-04-20T21:44:48Z [INFO] Destroying any imported ZFS pools...
+2026-04-20T21:44:48Z [INFO] Verifying no other devices were affected...
+2026-04-20T21:44:48Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T21:45:27Z
+═══════════════════════════════════════════
+
+2026-04-20T21:45:27Z [INFO] Starting stage: DISK_SAFETY
+2026-04-20T21:45:27Z [INFO] === DISK_SAFETY ===
+2026-04-20T21:45:27Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T21:45:27Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-20T21:45:30Z [WARN] wipefs reported non-fatal error
+2026-04-20T21:45:30Z [INFO] Disk wiped.
+2026-04-20T21:45:30Z [INFO] Destroying any imported ZFS pools...
+2026-04-20T21:45:30Z [INFO] Unmounting pool mountpoints for: ACABROOT-A455
+2026-04-20T21:45:30Z [WARN] Failed to unmount /mnt/install
+2026-04-20T21:45:30Z [INFO] Exporting pool: ACABROOT-A455
+2026-04-20T21:45:30Z [INFO] Destroying pool: ACABROOT-A455
+2026-04-20T21:45:30Z [WARN] Failed to destroy pool ACABROOT-A455
+2026-04-20T21:45:30Z [INFO] Verifying no other devices were affected...
+2026-04-20T21:45:30Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-20T21:45:30Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T00:32:24Z
+═══════════════════════════════════════════
+
+2026-04-21T00:32:24Z [INFO] Starting stage: DISK_SAFETY
+2026-04-21T00:32:24Z [INFO] === DISK_SAFETY ===
+2026-04-21T00:32:24Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-21T00:32:24Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-21T00:32:29Z [INFO] Disk wiped.
+2026-04-21T00:32:29Z [INFO] Destroying any imported ZFS pools...
+2026-04-21T00:32:29Z [INFO] Verifying no other devices were affected...
+2026-04-21T00:32:29Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T10:14:28Z
+═══════════════════════════════════════════
+
+2026-04-21T10:14:28Z [INFO] Starting stage: DISK_SAFETY
+2026-04-21T10:14:28Z [INFO] === DISK_SAFETY ===
+2026-04-21T10:14:28Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-21T10:14:44Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-21T10:14:45Z [WARN] wipefs reported non-fatal error
+2026-04-21T10:14:45Z [INFO] Disk wiped.
+2026-04-21T10:14:45Z [INFO] Destroying any imported ZFS pools...
+2026-04-21T10:14:45Z [INFO] Unmounting pool mountpoints for: ACABROOT-C2A8
+2026-04-21T10:14:45Z [WARN] Failed to unmount /mnt/install
+2026-04-21T10:14:45Z [INFO] Exporting pool: ACABROOT-C2A8
+2026-04-21T10:14:46Z [INFO] Destroying pool: ACABROOT-C2A8
+2026-04-21T10:14:46Z [WARN] Failed to destroy pool ACABROOT-C2A8
+2026-04-21T10:14:46Z [INFO] Verifying no other devices were affected...
+2026-04-21T10:14:46Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-21T10:14:46Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T12:35:03Z
+═══════════════════════════════════════════
+
+2026-04-21T12:35:03Z [INFO] Starting stage: DISK_SAFETY
+2026-04-21T12:35:03Z [INFO] === DISK_SAFETY ===
+2026-04-21T12:35:03Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-21T12:35:03Z [INFO] Skipping manual disk confirmation (ACABOS_ASSUME_YES=true).
+2026-04-21T12:35:03Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-21T12:35:08Z [WARN] wipefs reported non-fatal error
+2026-04-21T12:35:08Z [INFO] Disk wiped.
+2026-04-21T12:35:08Z [INFO] Destroying any imported ZFS pools...
+2026-04-21T12:35:08Z [INFO] Unmounting pool mountpoints for: ACABROOT-39F2
+2026-04-21T12:35:08Z [WARN] Failed to unmount /mnt/install
+2026-04-21T12:35:08Z [INFO] Exporting pool: ACABROOT-39F2
+2026-04-21T12:35:08Z [INFO] Destroying pool: ACABROOT-39F2
+2026-04-21T12:35:08Z [WARN] Failed to destroy pool ACABROOT-39F2
+2026-04-21T12:35:08Z [INFO] Verifying no other devices were affected...
+2026-04-21T12:35:08Z [WARN] Device still has identifiable data after wipe. Proceeding with caution.
+2026-04-21T12:35:08Z [INFO] DISK_SAFETY complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T12:37:03Z
+═══════════════════════════════════════════
+
+2026-04-21T12:37:03Z [INFO] Starting stage: DISK_SAFETY
+2026-04-21T12:37:03Z [INFO] === DISK_SAFETY ===
+2026-04-21T12:37:03Z [INFO] Target disk verified: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-21T12:37:03Z [INFO] Skipping manual disk confirmation (ACABOS_ASSUME_YES=true).
+2026-04-21T12:37:03Z [INFO] Wiping disk: /dev/disk/by-id/nvme-Samsung_SSD_990_EVO_2TB_S7M4NL0XB09028A
+2026-04-21T12:37:07Z [INFO] Disk wiped.
+2026-04-21T12:37:07Z [INFO] Destroying any imported ZFS pools...
+2026-04-21T12:37:07Z [INFO] Verifying no other devices were affected...
+2026-04-21T12:37:07Z [INFO] DISK_SAFETY complete.

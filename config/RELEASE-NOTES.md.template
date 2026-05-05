@@ -1,0 +1,46 @@
+# ACABOS Release Notes
+
+This installation was built by the ACABOS installer for a Debian 13 GPU-aware workstation.
+
+## Supported Default Stack
+
+### Native Services
+- `mistral.rs`
+- `ollama`
+- `jupyter`
+
+### Containerized Services
+- `qdrant`
+- `localai`
+- `comfyui`
+
+## Runtime Activation Model
+
+ACABOS uses a two-step model:
+
+1. The installer assembles the system and installs runtimes.
+2. First boot validates the live runtime and enables only services that pass.
+
+## Build Summary
+
+- Hostname: `__ACAB_HOSTNAME__`
+- User: `__ACAB_USERNAME__`
+- Kernel: `__ACAB_KERNEL__`
+- NVIDIA Driver: `__ACAB_NVIDIA__`
+- Podman: `__ACAB_PODMAN__`
+- Python: `__ACAB_PYTHON__`
+- PyTorch: `__ACAB_TORCH__`
+- mistral.rs: `__ACAB_MISTRAL__`
+- Ollama: `__ACAB_OLLAMA__`
+- GPU Vendor: `__ACAB_GPU_VENDOR__`
+- GPU Support Tier: `__ACAB_GPU_TIER__`
+- GPU Runtime Target: `__ACAB_GPU_RUNTIME__`
+
+## Notes
+
+- Jupyter is installed but disabled by default.
+- `mistral.rs` is installed but requires a profile under `/etc/acabos/inference/` before use.
+- `qdrant`, `localai`, and `comfyui` are validated on first boot and enabled only if they pass runtime checks.
+- Hugepages are not reserved by default.
+
+See `FIRST-STEPS.md` for enablement and day-one usage instructions.

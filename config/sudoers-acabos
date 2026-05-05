@@ -1,0 +1,4 @@
+%sudo ALL=(ALL:ALL) ALL
+Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Defaults env_keep += "DISPLAY XAUTHORITY WAYLAND_DISPLAY"
+Defaults env_keep += "CUDA_HOME CUDA_PATH NVIDIA_*"

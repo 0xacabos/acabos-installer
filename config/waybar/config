@@ -1,0 +1,62 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 28,
+    "spacing": 4,
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["custom/nvidia", "pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray", "clock"],
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10"
+        }
+    },
+    "clock": {
+        "format": "{:%Y-%m-%d %H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "cpu": {
+        "format": "CPU {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "MEM {}%"
+    },
+    "temperature": {
+        "thermal-zone": 2,
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        "format-critical": "CRIT {temperatureC}C",
+        "format": "{temperatureC}C"
+    },
+    "network": {
+        "format-wifi": "WIFI {essid}",
+        "format-ethernet": "ETH {ipaddr}",
+        "format-disconnected": "DISC"
+    },
+    "pulseaudio": {
+        "format": "VOL {volume}%",
+        "format-muted": "MUTE",
+        "on-click": "pavucontrol"
+    },
+    "custom/nvidia": {
+        "exec": "~/.config/waybar/scripts/nvidia.sh",
+        "return-type": "json",
+        "interval": 5
+    },
+    "tray": {
+        "spacing": 10
+    }
+}

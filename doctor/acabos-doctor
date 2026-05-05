@@ -1,0 +1,548 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+
+# acabos-doctor -- post-install invariant validation tool.
+#
+# Runs 22 function-based checks organized in a dependency graph across 7 domains:
+#   Storage (4):    pool import, encryption, datasets mounted, swap
+#   Boot (3):       ZBM present, initramfs ZFS, EFI populated
+#   Graphics (5):   DKMS built, nvidia-smi, DRM modeset, GPU detected, container toolkit
+#   Runtime (4):    mistral endpoint, podman, AI venv, llama.cpp
+#   Desktop (2):    sway installed, desktop configs
+#   System (2):     user account, performance tuning
+#   Manifest (2):   exists, valid JSON
+#
+# Skip semantics: if a prerequisite fails, dependents are marked "skip" (not "fail")
+# to prevent cascade noise. One root failure = 1 fail + N skips.
+#
+# Context-aware: GPU checks use detect_runtime_context() for physical/virtual semantics.
+# Exit code: 0 if all severity=fail checks pass, 1 if any fail.
+
+DOCTOR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+INSTALLER_DIR="$(dirname "$DOCTOR_DIR")"
+
+source "${INSTALLER_DIR}/lib/common.sh"
+source "${INSTALLER_DIR}/lib/topology.sh"
+source "${INSTALLER_DIR}/lib/detect_virt.sh"
+
+readonly DOCTOR_SCHEMA="acabos-doctor-invariants/v2"
+
+declare -A CHECKS
+CHECKS=(
+  [INV-STOR-001]="check_pool_import"
+  [INV-STOR-002]="check_pool_encrypted"
+  [INV-STOR-003]="check_datasets_mounted"
+  [INV-STOR-004]="check_swap_active"
+  [INV-BOOT-001]="check_zfsbootmenu_present"
+  [INV-BOOT-002]="check_initramfs_zfs"
+  [INV-BOOT-003]="check_efi_populated"
+  [INV-GFX-001]="check_nvidia_dkms"
+  [INV-GFX-002]="check_nvidia_smi"
+  [INV-GFX-003]="check_drm_modeset"
+  [INV-GFX-004]="check_gpu_detected"
+  [INV-GFX-005]="check_nvidia_container_toolkit"
+  [INV-RUN-001]="check_mistral_endpoint"
+  [INV-RUN-002]="check_podman_info"
+  [INV-RUN-003]="check_ai_venv"
+  [INV-RUN-004]="check_llama_cpp"
+  [INV-DESK-001]="check_sway_installed"
+  [INV-DESK-002]="check_desktop_configs"
+  [INV-SYS-001]="check_user_account"
+  [INV-SYS-002]="check_performance_tuning"
+  [INV-MNF-001]="check_manifest_exists"
+  [INV-MNF-002]="check_manifest_valid"
+)
+
+declare -A CHECK_DEPS
+CHECK_DEPS=(
+  [INV-STOR-001]=""
+  [INV-STOR-002]="INV-STOR-001"
+  [INV-STOR-003]="INV-STOR-001"
+  [INV-STOR-004]="INV-STOR-001"
+  [INV-BOOT-001]="INV-STOR-001 INV-STOR-003"
+  [INV-BOOT-002]="INV-STOR-001"
+  [INV-BOOT-003]="INV-STOR-001 INV-BOOT-001"
+  [INV-GFX-001]=""
+  [INV-GFX-002]="INV-GFX-001 INV-GFX-004"
+  [INV-GFX-003]="INV-GFX-001 INV-GFX-004"
+  [INV-GFX-004]=""
+  [INV-GFX-005]="INV-GFX-001"
+  [INV-RUN-001]=""
+  [INV-RUN-002]=""
+  [INV-RUN-003]=""
+  [INV-RUN-004]=""
+  [INV-DESK-001]=""
+  [INV-DESK-002]="INV-DESK-001"
+  [INV-SYS-001]=""
+  [INV-SYS-002]=""
+  [INV-MNF-001]=""
+  [INV-MNF-002]="INV-MNF-001"
+)
+
+declare -A CHECK_RESULTS
+ALL_RESULTS=()
+
+echo_result() {
+  local status="$1" desc="$2" severity="$3" field="$4" detail="$5"
+  desc=${desc//$'\n'/ }
+  desc=${desc//|//}
+  detail=${detail//$'\n'/; }
+  detail=${detail//|//}
+  printf '%s|%s|%s|%s|%s|%s\n' "$status" "$desc" "$severity" "$field" "$detail" "$(iso_timestamp)"
+}
+
+get_domain() {
+  local id="$1"
+  case "$id" in
+    INV-STOR-*) echo "storage" ;;
+    INV-BOOT-*) echo "boot" ;;
+    INV-GFX-*)  echo "graphics" ;;
+    INV-RUN-*)  echo "runtime" ;;
+    INV-DESK-*) echo "desktop" ;;
+    INV-SYS-*)  echo "system" ;;
+    INV-MNF-*)  echo "manifest" ;;
+    *)          echo "unknown" ;;
+  esac
+}
+
+check_pool_import() {
+  local pool_name="$1"
+  local desc="Pool ${pool_name} importable read-only"
+  local severity="fail"
+  local field="zfs.pool_importable"
+  if run_timeout "$SHORT_TIMEOUT" zpool list -H "${pool_name}" >/dev/null 2>&1; then
+    echo_result "pass" "$desc" "$severity" "$field" "pool already imported"
+  elif run_timeout "$SHORT_TIMEOUT" zpool import -N -o readonly=on "${pool_name}" >/dev/null 2>&1; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "zpool import returned non-zero"
+  fi
+}
+
+check_pool_encrypted() {
+  local pool_name="$1"
+  local desc="Pool ${pool_name}/ROOT/acabos encryption active"
+  local severity="fail"
+  local field="zfs.encryption_active"
+  local encroot
+  encroot=$(run_timeout "$SHORT_TIMEOUT" zfs get -H -o value encryptionroot "${pool_name}/ROOT/acabos" 2>/dev/null || echo "-")
+  if [[ "$encroot" != "-" && -n "$encroot" ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" "encroot=${encroot}"
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "encryptionroot is empty or dash"
+  fi
+}
+
+check_datasets_mounted() {
+  local pool_name="$1"
+  local desc="Root dataset ${pool_name}/ROOT/acabos mounted"
+  local severity="fail"
+  local field="zfs.root_mounted"
+  local mounted
+  mounted=$(run_timeout "$SHORT_TIMEOUT" zfs get -H -o value mounted "${pool_name}/ROOT/acabos" 2>/dev/null || echo "no")
+  if [[ "$mounted" == "yes" ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "mounted=${mounted}"
+  fi
+}
+
+check_swap_active() {
+  local desc="Swap active"
+  local severity="fail"
+  local field="zfs.swap_active"
+  local swap
+  swap=$(run_timeout "$SHORT_TIMEOUT" swapon --show 2>/dev/null || echo "")
+  if [[ -n "$swap" ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" "$swap"
+  else
+    echo_result "warn" "$desc" "$severity" "$field" "No active swap detected - may be normal for installed system"
+  fi
+}
+
+check_zfsbootmenu_present() {
+  local desc="ZFSBootMenu authoritative EFI bundle present"
+  local severity="fail"
+  local field="boot.zfsbootmenu_present"
+  local bundle="/boot/efi/EFI/zbm/zfsbootmenu.EFI"
+  if [[ -s "$bundle" ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" "$bundle"
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "Missing authoritative bundle: ${bundle}"
+  fi
+}
+
+check_initramfs_zfs() {
+  local desc="Initramfs contains ZFS modules"
+  local severity="fail"
+  local field="boot.initramfs_zfs"
+  local initramfs
+  initramfs=$(ls -1 /boot/initramfs-* 2>/dev/null | head -1 || true)
+  if [[ -z "$initramfs" ]]; then
+    initramfs=$(ls -1 /boot/initrd.img-* 2>/dev/null | head -1 || true)
+  fi
+  if [[ -z "$initramfs" ]]; then
+    echo_result "fail" "$desc" "$severity" "$field" "No initramfs found"
+    return
+  fi
+  local zfs_count
+  if ! zfs_count=$(run_timeout "$SHORT_TIMEOUT" lsinitrd "$initramfs" 2>/dev/null | awk '/zfs/ {c++} END {print c+0}'); then
+    zfs_count=0
+  fi
+  if [[ "$zfs_count" -gt 0 ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" "${zfs_count} ZFS entries in ${initramfs}"
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "No ZFS modules in ${initramfs}"
+  fi
+}
+
+check_efi_populated() {
+  local desc="EFI partition populated"
+  local severity="fail"
+  local field="boot.efi_populated"
+  local efi_contents
+  efi_contents=$(ls /boot/efi/EFI/ 2>/dev/null || true)
+  if [[ -n "$efi_contents" ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" "$efi_contents"
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "EFI partition empty or not mounted"
+  fi
+}
+
+check_nvidia_dkms() {
+  local desc="NVIDIA DKMS module built"
+  local severity="fail"
+  local field="graphics.nvidia_dkms_ok"
+  local status
+  status=$(run_timeout "$SHORT_TIMEOUT" dkms status nvidia 2>/dev/null || echo "")
+  if [[ "$status" == *installed* ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" "$status"
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "dkms status: ${status:-empty}"
+  fi
+}
+
+check_nvidia_smi() {
+  local desc="nvidia-smi functional"
+  local severity="fail"
+  local field="graphics.nvidia_smi_ok"
+  if run_timeout "$SHORT_TIMEOUT" nvidia-smi >/dev/null 2>&1; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    local ctx
+    ctx=$(detect_runtime_context)
+    if [[ "$ctx" == "virtual" ]]; then
+      echo_result "warn" "$desc" "$severity" "$field" "nvidia-smi failed - virtual environment, expected"
+    else
+      echo_result "fail" "$desc" "$severity" "$field" "nvidia-smi failed on physical hardware"
+    fi
+  fi
+}
+
+check_drm_modeset() {
+  local desc="NVIDIA DRM modeset active"
+  local severity="fail"
+  local field="graphics.drm_modeset_active"
+  local modeset
+  modeset=$(cat /sys/module/nvidia_drm/parameters/modeset 2>/dev/null || echo "")
+  if [[ "$modeset" == "Y" ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    local ctx
+    ctx=$(detect_runtime_context)
+    if [[ "$ctx" == "virtual" ]]; then
+      echo_result "warn" "$desc" "$severity" "$field" "modeset=${modeset:-N/A} virtual environment"
+    else
+      echo_result "fail" "$desc" "$severity" "$field" "modeset=${modeset:-N/A}"
+    fi
+  fi
+}
+
+check_gpu_detected() {
+  local desc="NVIDIA GPU detected via PCI"
+  local severity="fail"
+  local field="graphics.gpu_detected"
+  local count
+  count=$(run_timeout "$SHORT_TIMEOUT" lspci -nn 2>/dev/null | grep -ic nvidia || echo "0")
+  if [[ "$count" -gt 0 ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" "count=${count}"
+  else
+    local ctx
+    ctx=$(detect_runtime_context)
+    if [[ "$ctx" == "virtual" ]]; then
+      echo_result "warn" "$desc" "$severity" "$field" "No NVIDIA GPU - virtual environment"
+    else
+      echo_result "fail" "$desc" "$severity" "$field" "No NVIDIA GPU detected"
+    fi
+  fi
+}
+
+check_nvidia_container_toolkit() {
+  local desc="NVIDIA Container Toolkit functional"
+  local severity="warn"
+  local field="graphics.nvidia_container_toolkit"
+  if command -v nvidia-ctk >/dev/null 2>&1; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    echo_result "warn" "$desc" "$severity" "$field" "nvidia-ctk not found"
+  fi
+}
+
+check_mistral_endpoint() {
+  local desc="Mistral.rs inference endpoint responding"
+  local severity="warn"
+  local field="inference.endpoint_ok"
+  if run_timeout "$SHORT_TIMEOUT" curl -sf http://127.0.0.1:8012/health >/dev/null 2>&1; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    echo_result "warn" "$desc" "$severity" "$field" "Endpoint not responding at 127.0.0.1:8012"
+  fi
+}
+
+check_podman_info() {
+  local desc="Podman functional"
+  local severity="fail"
+  local field="containers.runtime_ok"
+  if run_timeout "$SHORT_TIMEOUT" podman info >/dev/null 2>&1; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "podman info failed"
+  fi
+}
+
+check_ai_venv() {
+  local desc="AI Python venv with PyTorch"
+  local severity="fail"
+  local field="ai.venv_ok"
+  if [[ -f /opt/ai-venv/bin/python ]]; then
+    local torch_check
+    torch_check=$(/opt/ai-venv/bin/python -c 'import torch; print(torch.__version__)' 2>/dev/null || echo "")
+    if [[ -n "$torch_check" ]]; then
+      echo_result "pass" "$desc" "$severity" "$field" "torch=${torch_check}"
+    else
+      echo_result "fail" "$desc" "$severity" "$field" "Python venv exists but PyTorch not importable"
+    fi
+  else
+    echo_result "fail" "$desc" "$severity" "$field" "/opt/ai-venv/bin/python not found"
+  fi
+}
+
+check_llama_cpp() {
+  local desc="llama.cpp binary functional"
+  local severity="warn"
+  local field="ai.llama_cpp_ok"
+  if [[ -x /opt/llama-cpp/build/bin/llama-cli ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    echo_result "warn" "$desc" "$severity" "$field" "/opt/llama-cpp/build/bin/llama-cli not found"
+  fi
+}
+
+check_sway_installed() {
+  local desc="Sway desktop installed"
+  local severity="warn"
+  local field="desktop.sway_installed"
+  if dpkg-query -W -f='${Status}' sway 2>/dev/null | grep -q "installed"; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    echo_result "warn" "$desc" "$severity" "$field" "sway package not installed"
+  fi
+}
+
+check_desktop_configs() {
+  local desc="Desktop configuration files present"
+  local severity="warn"
+  local field="desktop.configs_ok"
+  local missing=()
+  [[ -f /usr/local/bin/sway-nvidia ]] || missing+=("sway-nvidia")
+  [[ -f /usr/local/bin/start-desktop ]] || missing+=("start-desktop")
+  [[ -f /etc/skel/.config/sway/config ]] || missing+=("sway-skel-config")
+  [[ -f /etc/skel/.config/waybar/config ]] || missing+=("waybar-skel-config")
+  if [[ ${#missing[@]} -eq 0 ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    echo_result "warn" "$desc" "$severity" "$field" "Missing: ${missing[*]}"
+  fi
+}
+
+check_user_account() {
+  local desc="Non-root user account exists"
+  local severity="fail"
+  local field="system.user_account"
+  local manifest_user
+  manifest_user=$(jq -r '.station.username // ""' /opt/acab/manifests/install-manifest.json 2>/dev/null || echo "")
+  if [[ -n "$manifest_user" ]]; then
+    if id "$manifest_user" >/dev/null 2>&1; then
+      echo_result "pass" "$desc" "$severity" "$field" "user=${manifest_user}"
+    else
+      echo_result "fail" "$desc" "$severity" "$field" "User ${manifest_user} not found"
+    fi
+  else
+    echo_result "warn" "$desc" "$severity" "$field" "Cannot determine username from manifest"
+  fi
+}
+
+check_performance_tuning() {
+  local desc="Performance tuning sysctl applied"
+  local severity="warn"
+  local field="system.performance_tuning"
+  local bbr
+  bbr=$(cat /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null || echo "")
+  local issues=()
+  [[ "$bbr" == "bbr" ]] || issues+=("congestion=${bbr:-unset}")
+  if [[ ${#issues[@]} -eq 0 ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" "congestion=${bbr}"
+  else
+    echo_result "warn" "$desc" "$severity" "$field" "Issues: ${issues[*]}"
+  fi
+}
+
+check_manifest_exists() {
+  local desc="Install manifest exists"
+  local severity="fail"
+  [[ "${ACABOS_DOCTOR_PRE_FINALIZE:-false}" == "true" ]] && severity="warn"
+  local field="manifest.exists"
+  if [[ -f /opt/acab/manifests/install-manifest.json ]]; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    if [[ "$severity" == "warn" ]]; then
+      echo_result "warn" "$desc" "$severity" "$field" "Manifest not generated yet (pre-finalize context)"
+    else
+      echo_result "fail" "$desc" "$severity" "$field" "/opt/acab/manifests/install-manifest.json not found"
+    fi
+  fi
+}
+
+check_manifest_valid() {
+  local desc="Install manifest valid JSON"
+  local severity="fail"
+  [[ "${ACABOS_DOCTOR_PRE_FINALIZE:-false}" == "true" ]] && severity="warn"
+  local field="manifest.valid_json"
+  if [[ ! -f /opt/acab/manifests/install-manifest.json ]]; then
+    if [[ "$severity" == "warn" ]]; then
+      echo_result "warn" "$desc" "$severity" "$field" "Manifest not present yet (pre-finalize context)"
+    else
+      echo_result "fail" "$desc" "$severity" "$field" "Manifest is not present"
+    fi
+    return
+  fi
+  if run_timeout "$SHORT_TIMEOUT" jq . /opt/acab/manifests/install-manifest.json >/dev/null 2>&1; then
+    echo_result "pass" "$desc" "$severity" "$field" ""
+  else
+    if [[ "$severity" == "warn" ]]; then
+      echo_result "warn" "$desc" "$severity" "$field" "Manifest is not valid JSON"
+    else
+      echo_result "fail" "$desc" "$severity" "$field" "Manifest is not valid JSON"
+    fi
+  fi
+}
+
+CHECK_ORDER=(
+  INV-STOR-001
+  INV-STOR-002
+  INV-STOR-003
+  INV-STOR-004
+  INV-BOOT-001
+  INV-BOOT-002
+  INV-BOOT-003
+  INV-GFX-001
+  INV-GFX-004
+  INV-GFX-002
+  INV-GFX-003
+  INV-GFX-005
+  INV-RUN-001
+  INV-RUN-002
+  INV-RUN-003
+  INV-RUN-004
+  INV-DESK-001
+  INV-DESK-002
+  INV-SYS-001
+  INV-SYS-002
+  INV-MNF-001
+  INV-MNF-002
+)
+
+pool_name=""
+if [[ -f /opt/acab/manifests/install-manifest.json ]]; then
+  pool_name=$(jq -r '.zfs.pool_name // ""' /opt/acab/manifests/install-manifest.json 2>/dev/null || echo "")
+fi
+if [[ -z "$pool_name" ]]; then
+  pool_name=$(zpool list -H -o name 2>/dev/null | grep '^ACABROOT-' | head -1 || echo "")
+fi
+if [[ -z "$pool_name" ]]; then
+  pool_name="ACABROOT-UNKNOWN"
+  warn "Cannot determine pool name. Some checks may fail."
+fi
+
+echo "============================================"
+echo "  acabos-doctor"
+echo "  Schema: ${DOCTOR_SCHEMA}"
+echo "  Pool:   ${pool_name}"
+echo "  Checks: ${#CHECK_ORDER[@]}"
+echo "============================================"
+echo ""
+
+any_fail=false
+any_warn=false
+
+for id in "${CHECK_ORDER[@]}"; do
+  deps="${CHECK_DEPS[$id]}"
+  skip_reason=""
+
+  if [[ -n "$deps" ]]; then
+    for dep in ${deps// /$'\n'}; do
+      dep_result="${CHECK_RESULTS[$dep]:-unknown}"
+      if [[ "$dep_result" != "pass" ]]; then
+        skip_reason="prerequisite ${dep} ${dep_result}"
+        break
+      fi
+    done
+  fi
+
+  if [[ -n "$skip_reason" ]]; then
+    CHECK_RESULTS["$id"]="skip"
+    domain=$(get_domain "$id")
+    result_line="skip|${id}|${domain}|${skip_reason}|$(iso_timestamp)"
+    ALL_RESULTS+=("$result_line")
+    echo "  SKIP  ${id}: ${skip_reason}"
+    continue
+  fi
+
+  func="${CHECKS[$id]}"
+  result=$("$func" "$pool_name")
+  status=$(echo "$result" | cut -d'|' -f1)
+  CHECK_RESULTS["$id"]="$status"
+
+  domain=$(get_domain "$id")
+  desc=$(echo "$result" | cut -d'|' -f2)
+  ALL_RESULTS+=("${status}|${id}|${domain}|${desc}|$(iso_timestamp)")
+
+  case "$status" in
+    pass) echo "  PASS  ${id}: ${desc}" ;;
+    warn) echo "  WARN  ${id}: ${desc}"; any_warn=true ;;
+    fail) echo "  FAIL  ${id}: ${desc}"; any_fail=true ;;
+  esac
+done
+
+echo ""
+echo "============================================"
+pass_count=0
+fail_count=0
+skip_count=0
+warn_count=0
+for id in "${CHECK_ORDER[@]}"; do
+  case "${CHECK_RESULTS[$id]}" in
+    pass) ((pass_count++)) || true ;;
+    fail) ((fail_count++)) || true ;;
+    skip) ((skip_count++)) || true ;;
+    warn) ((warn_count++)) || true ;;
+  esac
+done
+echo "  Results: ${pass_count} pass, ${fail_count} fail, ${warn_count} warn, ${skip_count} skip"
+echo "============================================"
+
+if [[ "$any_fail" == "true" ]]; then
+  exit 1
+fi
+exit 0

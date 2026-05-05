@@ -1,0 +1,218 @@
+{
+  "schema_version": "forensic-project-manifest/v1",
+  "generated_at": "2026-04-17T00:00:00Z",
+  "project_root": "/home/badkuzushi/Scratchpad/installer/acabos-installer",
+  "classification": {
+    "domain": [
+      "installer",
+      "runtime-orchestration",
+      "validation"
+    ],
+    "criticality": {
+      "overall": "MISSION_CRITICAL",
+      "components": {
+        "orchestrator": "MISSION_CRITICAL",
+        "storage_and_boot_chain": "MISSION_CRITICAL",
+        "gpu_and_runtime_substrate": "MISSION_CRITICAL",
+        "desktop_and_auxiliary_tools": "DEGRADED",
+        "ui_helpers": "NON_CRITICAL"
+      }
+    },
+    "acabos_alignment": {
+      "governed_execution_plane": [
+        "acabos-install",
+        "lib/common.sh"
+      ],
+      "policy_evaluation": [
+        "doctor/acabos-doctor"
+      ],
+      "trust_attestation": [
+        "config/nvidia-keyring.sha256",
+        "config/cudnn.version",
+        "state/logs/*.sha256"
+      ],
+      "storage_zfs_state": [
+        "lib/topology.sh",
+        "lib/stage_zfs_create.sh",
+        "state/install-state.json"
+      ],
+      "runtime_orchestration": [
+        "lib/stage_nvidia_bringup.sh",
+        "lib/stage_podman.sh",
+        "lib/stage_inference.sh",
+        "config/quadlets/*"
+      ],
+      "interface_tui_api": [
+        "acabos-install",
+        "lib/stage_input.sh",
+        "/etc/systemd/system/acab-inference.service (generated)"
+      ]
+    }
+  },
+  "recomposition_decision": "REFACTOR",
+  "integrity_flags": [
+    "top-level-local-usage-in-bash-scripts",
+    "stage-count-documentation-drift",
+    "missing-referenced-docs/acabos-installer-spec.md",
+    "external-repo-determinism-risk",
+    "jupyter-open-auth-surface"
+  ],
+  "dependency_map": {
+    "entrypoint_depends_on": [
+      "lib/common.sh",
+      "lib/topology.sh",
+      "lib/detect_virt.sh",
+      "lib/probes.sh",
+      "lib/stage_preflight.sh",
+      "lib/stage_input.sh",
+      "lib/stage_disk_safety.sh",
+      "lib/stage_zfs_create.sh",
+      "lib/stage_base_install.sh",
+      "lib/stage_boot_chain.sh",
+      "lib/stage_nvidia_bringup.sh",
+      "lib/stage_podman.sh",
+      "lib/stage_desktop.sh",
+      "lib/stage_ai.sh",
+      "lib/stage_inference.sh",
+      "lib/stage_validation.sh",
+      "lib/stage_finalize.sh"
+    ],
+    "doctor_depends_on": [
+      "lib/common.sh",
+      "lib/topology.sh",
+      "lib/detect_virt.sh"
+    ],
+    "stage_to_config_dependencies": {
+      "BASE_INSTALL": [
+        "config/apt-sources.list",
+        "config/apt-preferences",
+        "config/apt-trust.conf",
+        "config/nvidia-container-toolkit.list",
+        "config/ssh-hardening.conf"
+      ],
+      "BOOT_CHAIN": [
+        "config/dracut.conf.d/zfs.conf",
+        "config/zfsbootmenu-config.yaml",
+        "config/nvidia-modprobe/*",
+        "config/nvidia-udev/70-nvidia.rules",
+        "config/sysctl/*",
+        "config/zfs-tuning.conf"
+      ],
+      "NVIDIA_BRINGUP": [
+        "config/cuda-env.sh",
+        "config/cuda-ldconfig.conf",
+        "config/nvidia-power.service"
+      ],
+      "PODMAN_SUBSTRATE": [
+        "config/podman/containers.conf",
+        "config/podman/storage.conf",
+        "config/podman/registries.conf"
+      ],
+      "DESKTOP_SUBSTRATE": [
+        "config/desktop-packages.list",
+        "config/sway/*",
+        "config/waybar/*",
+        "config/sway-nvidia",
+        "config/start-desktop",
+        "config/bashrc-aliases"
+      ],
+      "AI_SUBSTRATE": [
+        "config/ai-system-packages.list",
+        "config/ai-venv-requirements.txt",
+        "config/quadlets/*",
+        "config/jupyter/jupyter_server_config.py"
+      ],
+      "INFERENCE_SUBSTRATE": [
+        "config/cudnn.version",
+        "config/mistral.version"
+      ],
+      "FINALIZE": [
+        "config/manifest-template.jq",
+        "config/first-boot.service",
+        "config/first-boot-setup",
+        "config/sudoers-acabos",
+        "config/motd",
+        "config/issue"
+      ]
+    }
+  },
+  "file_inventory": [
+    {"path": "acabos-install", "class": "source_code"},
+    {"path": "CONTRIBUTING.md", "class": "documentation"},
+    {"path": "README.md", "class": "documentation"},
+    {"path": "docs/architecture.md", "class": "documentation"},
+    {"path": "docs/stage-reference.md", "class": "documentation"},
+    {"path": "doctor/acabos-doctor", "class": "source_code"},
+    {"path": "lib/common.sh", "class": "source_code"},
+    {"path": "lib/detect_virt.sh", "class": "source_code"},
+    {"path": "lib/probes.sh", "class": "source_code"},
+    {"path": "lib/stage_ai.sh", "class": "source_code"},
+    {"path": "lib/stage_base_install.sh", "class": "source_code"},
+    {"path": "lib/stage_boot_chain.sh", "class": "source_code"},
+    {"path": "lib/stage_desktop.sh", "class": "source_code"},
+    {"path": "lib/stage_disk_safety.sh", "class": "source_code"},
+    {"path": "lib/stage_finalize.sh", "class": "source_code"},
+    {"path": "lib/stage_inference.sh", "class": "source_code"},
+    {"path": "lib/stage_input.sh", "class": "source_code"},
+    {"path": "lib/stage_nvidia_bringup.sh", "class": "source_code"},
+    {"path": "lib/stage_podman.sh", "class": "source_code"},
+    {"path": "lib/stage_preflight.sh", "class": "source_code"},
+    {"path": "lib/stage_validation.sh", "class": "source_code"},
+    {"path": "lib/stage_zfs_create.sh", "class": "source_code"},
+    {"path": "lib/topology.sh", "class": "source_code"},
+
+    {"path": "config/ai-system-packages.list", "class": "config"},
+    {"path": "config/ai-venv-requirements.txt", "class": "config"},
+    {"path": "config/apt-preferences", "class": "config"},
+    {"path": "config/apt-sources.list", "class": "config"},
+    {"path": "config/apt-trust.conf", "class": "config"},
+    {"path": "config/bashrc-aliases", "class": "config"},
+    {"path": "config/cuda-env.sh", "class": "config"},
+    {"path": "config/cuda-ldconfig.conf", "class": "config"},
+    {"path": "config/cudnn.version", "class": "config"},
+    {"path": "config/desktop-packages.list", "class": "config"},
+    {"path": "config/dracut.conf.d/zfs.conf", "class": "config"},
+    {"path": "config/first-boot.service", "class": "config"},
+    {"path": "config/first-boot-setup", "class": "source_code"},
+    {"path": "config/issue", "class": "config"},
+    {"path": "config/jupyter/jupyter_server_config.py", "class": "source_code"},
+    {"path": "config/manifest-template.jq", "class": "source_code"},
+    {"path": "config/mistral.version", "class": "config"},
+    {"path": "config/motd", "class": "config"},
+    {"path": "config/nvidia-container-toolkit.list", "class": "config"},
+    {"path": "config/nvidia-keyring.sha256", "class": "config"},
+    {"path": "config/nvidia-modprobe/nvidia.conf", "class": "config"},
+    {"path": "config/nvidia-modprobe/nvidia-drm.conf", "class": "config"},
+    {"path": "config/nvidia-modprobe/nvidia-uvm.conf", "class": "config"},
+    {"path": "config/nvidia-power.service", "class": "config"},
+    {"path": "config/nvidia-udev/70-nvidia.rules", "class": "config"},
+    {"path": "config/podman/containers.conf", "class": "config"},
+    {"path": "config/podman/registries.conf", "class": "config"},
+    {"path": "config/podman/storage.conf", "class": "config"},
+    {"path": "config/quadlets/ai-services.pod", "class": "config"},
+    {"path": "config/quadlets/ai-toolbox.container", "class": "config"},
+    {"path": "config/quadlets/comfyui.container", "class": "config"},
+    {"path": "config/quadlets/localai.container", "class": "config"},
+    {"path": "config/quadlets/ollama.container", "class": "config"},
+    {"path": "config/quadlets/ollama-webui.container", "class": "config"},
+    {"path": "config/quadlets/qdrant.container", "class": "config"},
+    {"path": "config/quadlets/stable-diffusion.container", "class": "config"},
+    {"path": "config/quadlets/text-generation-webui.container", "class": "config"},
+    {"path": "config/quadlets/whisper-asr.container", "class": "config"},
+    {"path": "config/ssh-hardening.conf", "class": "config"},
+    {"path": "config/start-desktop", "class": "source_code"},
+    {"path": "config/sudoers-acabos", "class": "config"},
+    {"path": "config/sway/config", "class": "config"},
+    {"path": "config/sway/config.d/input", "class": "config"},
+    {"path": "config/sway/config.d/nvidia", "class": "config"},
+    {"path": "config/sway/config.d/output", "class": "config"},
+    {"path": "config/sway-nvidia", "class": "source_code"},
+    {"path": "config/sysctl/99-hugepages.conf", "class": "config"},
+    {"path": "config/sysctl/99-performance.conf", "class": "config"},
+    {"path": "config/waybar/config", "class": "config"},
+    {"path": "config/waybar/scripts/nvidia.sh", "class": "source_code"},
+    {"path": "config/waybar/style.css", "class": "config"},
+    {"path": "config/zfs-tuning.conf", "class": "config"},
+    {"path": "config/zfsbootmenu-config.yaml", "class": "config"}
+  ]
+}

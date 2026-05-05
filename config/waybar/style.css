@@ -1,0 +1,49 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrains Mono", "Font Awesome 6 Free";
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #1e1e2e;
+    color: #cdd6f4;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    background: transparent;
+    color: #cdd6f4;
+    border-bottom: 2px solid transparent;
+}
+
+#workspaces button.focused {
+    border-bottom: 2px solid #89b4fa;
+    color: #89b4fa;
+}
+
+#workspaces button.urgent {
+    border-bottom: 2px solid #f38ba8;
+    color: #f38ba8;
+}
+
+#mode, #clock, #battery, #cpu, #memory, #network, #pulseaudio, #temperature, #tray, #custom-nvidia {
+    padding: 0 10px;
+    margin: 0 2px;
+}
+
+#clock { color: #89b4fa; }
+#battery { color: #a6e3a1; }
+#battery.charging { color: #a6e3a1; }
+#battery.warning:not(.charging) { color: #f38ba8; }
+#cpu { color: #89dceb; }
+#memory { color: #f5c2e7; }
+#network { color: #94e2d5; }
+#network.disconnected { color: #f38ba8; }
+#pulseaudio { color: #fab387; }
+#pulseaudio.muted { color: #6c7086; }
+#temperature { color: #f9e2af; }
+#temperature.critical { color: #f38ba8; }
+#custom-nvidia { color: #a6e3a1; }
+#tray { color: #cdd6f4; }

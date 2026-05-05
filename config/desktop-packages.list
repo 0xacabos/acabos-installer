@@ -1,0 +1,172 @@
+# Desktop packages for ACABOS workstation.
+# Installed via apt-get install in DESKTOP_SUBSTRATE stage.
+
+# Core Wayland/Sway
+sway
+swaylock
+swayidle
+swaybg
+waybar
+wofi
+wlr-randr
+wl-clipboard
+clipman
+mako-notifier
+libnotify-bin
+brightnessctl
+playerctl
+pamixer
+kanshi
+wlsunset
+xdg-desktop-portal
+xdg-desktop-portal-wlr
+xdg-utils
+grim
+slurp
+pavucontrol
+lxpolkit
+xwayland
+
+# Terminals
+foot
+alacritty
+kitty
+
+# Fonts
+fontconfig
+fonts-noto
+fonts-noto-cjk
+fonts-noto-color-emoji
+fonts-dejavu
+fonts-liberation
+fonts-hack
+fonts-firacode
+fonts-jetbrains-mono
+fonts-liberation2
+
+# Themes/Icons
+gnome-themes-extra
+adwaita-icon-theme
+hicolor-icon-theme
+
+# Qt/GTK
+qt5ct
+qt6ct
+qtwayland5
+qt6-wayland
+breeze-gtk-theme
+lxappearance
+
+# Settings
+gsettings-desktop-schemas
+dconf-cli
+
+# File Managers
+ranger
+thunar
+thunar-archive-plugin
+thunar-volman
+gvfs
+gvfs-backends
+
+# Media
+ffmpeg
+ffmpegthumbnailer
+imagemagick
+mpv
+imv
+feh
+zathura
+zathura-pdf-poppler
+
+# CLI Utilities
+bat
+eza
+fd-find
+fzf
+ripgrep
+yq
+peco
+zoxide
+direnv
+fastfetch
+btop
+
+# Development
+git-flow
+tig
+cmake
+cmake-doc
+ninja-build
+meson
+rust-analyzer
+rust-clippy
+rustfmt
+yarnpkg
+golang-go
+gopls
+clang
+clangd
+lldb
+gdb
+valgrind
+shellcheck
+universal-ctags
+cscope
+
+# Firmware/Hardware
+firmware-linux
+firmware-linux-nonfree
+firmware-misc-nonfree
+
+# Networking
+network-manager
+iw
+wireless-tools
+wpasupplicant
+nftables
+ufw
+
+# System
+htop
+iotop
+tmux
+screen
+tree
+pciutils
+usbutils
+smartmontools
+lm-sensors
+acpi
+acpid
+polkitd
+udisks2
+upower
+apparmor
+apparmor-profiles
+apparmor-utils
+lsof
+strace
+ltrace
+tcpdump
+net-tools
+dnsutils
+iputils-ping
+ethtool
+rsync
+file
+zip
+unzip
+xz-utils
+p7zip-full
+bzip2
+plocate
+mc
+dbus-user-session
+
+# Power management
+linux-cpupower
+cpuid
+powertop
+tlp
+thermald

@@ -1,0 +1,513 @@
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:30:12Z
+═══════════════════════════════════════════
+
+2026-04-18T15:30:12Z [INFO] Starting stage: BASE_INSTALL
+2026-04-18T15:30:12Z [INFO] === BASE_INSTALL ===
+2026-04-18T15:30:12Z [INFO] Running mmdebstrap...
+2026-04-18T15:30:12Z [INFO]   target: /mnt/install
+2026-04-18T15:30:12Z [INFO]   hostname: acab
+2026-04-18T15:30:13Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:32:30Z
+═══════════════════════════════════════════
+
+2026-04-18T15:32:30Z [INFO] Starting stage: BASE_INSTALL
+2026-04-18T15:32:30Z [INFO] === BASE_INSTALL ===
+2026-04-18T15:32:30Z [INFO] Mounting ROOT dataset...
+2026-04-18T15:32:30Z [INFO] Mounting EFI partition...
+2026-04-18T15:32:30Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-18T15:32:30Z [INFO] Running mmdebstrap...
+2026-04-18T15:32:30Z [INFO]   target: /mnt/install
+2026-04-18T15:32:30Z [INFO]   hostname: acab
+2026-04-18T15:32:30Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:34:25Z
+═══════════════════════════════════════════
+
+2026-04-18T15:34:25Z [INFO] Starting stage: BASE_INSTALL
+2026-04-18T15:34:25Z [INFO] === BASE_INSTALL ===
+2026-04-18T15:34:25Z [INFO] Mounting ROOT dataset...
+2026-04-18T15:34:25Z [INFO] Running mmdebstrap...
+2026-04-18T15:34:25Z [INFO]   target: /mnt/install
+2026-04-18T15:34:25Z [INFO]   hostname: acab
+2026-04-18T15:34:25Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:35:40Z
+═══════════════════════════════════════════
+
+2026-04-18T15:35:40Z [INFO] Starting stage: BASE_INSTALL
+2026-04-18T15:35:40Z [INFO] === BASE_INSTALL ===
+2026-04-18T15:35:40Z [INFO] Mounting ROOT dataset...
+2026-04-18T15:35:40Z [INFO] Running mmdebstrap...
+2026-04-18T15:35:40Z [INFO]   target: /mnt/install
+2026-04-18T15:35:40Z [INFO]   hostname: acab
+2026-04-18T15:35:41Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-18T15:37:02Z
+═══════════════════════════════════════════
+
+2026-04-18T15:37:02Z [INFO] Starting stage: BASE_INSTALL
+2026-04-18T15:37:02Z [INFO] === BASE_INSTALL ===
+2026-04-18T15:37:02Z [INFO] Mounting ROOT dataset...
+2026-04-18T15:37:02Z [INFO] Running mmdebstrap...
+2026-04-18T15:37:02Z [INFO]   target: /mnt/install
+2026-04-18T15:37:02Z [INFO]   hostname: acab
+2026-04-18T15:37:17Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T06:41:01Z
+═══════════════════════════════════════════
+
+2026-04-19T06:41:01Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T06:41:01Z [INFO] === BASE_INSTALL ===
+2026-04-19T06:41:01Z [INFO] Mounting ROOT dataset...
+2026-04-19T06:41:01Z [INFO] Running mmdebstrap...
+2026-04-19T06:41:01Z [INFO]   target: /mnt/install
+2026-04-19T06:41:01Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T06:41:03Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T10:49:10Z
+═══════════════════════════════════════════
+
+2026-04-19T10:49:10Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T10:49:10Z [INFO] === BASE_INSTALL ===
+2026-04-19T10:49:10Z [INFO] Mounting ROOT dataset...
+2026-04-19T10:49:10Z [INFO] Running mmdebstrap...
+2026-04-19T10:49:10Z [INFO]   target: /mnt/install
+2026-04-19T10:49:10Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T10:49:11Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T10:59:01Z
+═══════════════════════════════════════════
+
+2026-04-19T10:59:01Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T10:59:01Z [INFO] === BASE_INSTALL ===
+2026-04-19T10:59:01Z [INFO] Mounting ROOT dataset...
+2026-04-19T10:59:01Z [INFO] Running mmdebstrap...
+2026-04-19T10:59:01Z [INFO]   target: /mnt/install
+2026-04-19T10:59:01Z [INFO]   hostname: 0xacabOS-Dev
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T10:59:39Z
+═══════════════════════════════════════════
+
+2026-04-19T10:59:39Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T10:59:39Z [INFO] === BASE_INSTALL ===
+2026-04-19T10:59:39Z [INFO] Mounting ROOT dataset...
+2026-04-19T10:59:39Z [INFO] Running mmdebstrap...
+2026-04-19T10:59:39Z [INFO]   target: /mnt/install
+2026-04-19T10:59:39Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T10:59:43Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:03:44Z
+═══════════════════════════════════════════
+
+2026-04-19T11:03:44Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:03:44Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:03:44Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:03:44Z [INFO] Running mmdebstrap...
+2026-04-19T11:03:44Z [INFO]   target: /mnt/install
+2026-04-19T11:03:44Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:04:01Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:08:22Z
+═══════════════════════════════════════════
+
+2026-04-19T11:08:22Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:08:22Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:08:22Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:08:22Z [INFO] Running mmdebstrap...
+2026-04-19T11:08:22Z [INFO]   target: /mnt/install
+2026-04-19T11:08:22Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:08:38Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:09:40Z
+═══════════════════════════════════════════
+
+2026-04-19T11:09:40Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:09:40Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:09:40Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:09:40Z [INFO] Running mmdebstrap...
+2026-04-19T11:09:40Z [INFO]   target: /mnt/install
+2026-04-19T11:09:40Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:09:56Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:11:28Z
+═══════════════════════════════════════════
+
+2026-04-19T11:11:28Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:11:28Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:11:28Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:11:28Z [INFO] Running mmdebstrap...
+2026-04-19T11:11:28Z [INFO]   target: /mnt/install
+2026-04-19T11:11:28Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:11:47Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:12:21Z
+═══════════════════════════════════════════
+
+2026-04-19T11:12:21Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:12:21Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:12:22Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:12:22Z [INFO] Running mmdebstrap...
+2026-04-19T11:12:22Z [INFO]   target: /mnt/install
+2026-04-19T11:12:22Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:16:25Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:16:56Z
+═══════════════════════════════════════════
+
+2026-04-19T11:16:56Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:16:56Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:16:56Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:16:56Z [INFO] Running mmdebstrap...
+2026-04-19T11:16:56Z [INFO]   target: /mnt/install
+2026-04-19T11:16:56Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:20:59Z [INFO] mmdebstrap completed.
+2026-04-19T11:20:59Z [INFO] Mounting EFI partition...
+2026-04-19T11:20:59Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-19T11:20:59Z [INFO] Writing fstab...
+2026-04-19T11:20:59Z [INFO] fstab written.
+2026-04-19T11:20:59Z [INFO] Writing keyboard configuration...
+2026-04-19T11:20:59Z [INFO] Keyboard configuration written.
+2026-04-19T11:20:59Z [INFO] Configuring SSH hardening...
+2026-04-19T11:20:59Z [INFO] SSH hardening configured.
+2026-04-19T11:20:59Z [INFO] Configuring journald...
+2026-04-19T11:20:59Z [INFO] Journald configured.
+2026-04-19T11:20:59Z [INFO] Writing /etc/hosts...
+2026-04-19T11:20:59Z [INFO] /etc/hosts written.
+2026-04-19T11:20:59Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-19T11:20:59Z [ERR ] DKMS autoinstall failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:22:45Z
+═══════════════════════════════════════════
+
+2026-04-19T11:22:45Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:22:45Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:22:45Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:22:46Z [INFO] Running mmdebstrap...
+2026-04-19T11:22:46Z [INFO]   target: /mnt/install
+2026-04-19T11:22:46Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:22:46Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:23:36Z
+═══════════════════════════════════════════
+
+2026-04-19T11:23:36Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:23:36Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:23:36Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:23:36Z [INFO] Running mmdebstrap...
+2026-04-19T11:23:36Z [INFO]   target: /mnt/install
+2026-04-19T11:23:36Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:27:44Z [INFO] mmdebstrap completed.
+2026-04-19T11:27:44Z [INFO] Mounting EFI partition...
+2026-04-19T11:27:44Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-19T11:27:44Z [INFO] Writing fstab...
+2026-04-19T11:27:44Z [INFO] fstab written.
+2026-04-19T11:27:44Z [INFO] Writing keyboard configuration...
+2026-04-19T11:27:44Z [INFO] Keyboard configuration written.
+2026-04-19T11:27:44Z [INFO] Configuring SSH hardening...
+2026-04-19T11:27:44Z [INFO] SSH hardening configured.
+2026-04-19T11:27:44Z [INFO] Configuring journald...
+2026-04-19T11:27:44Z [INFO] Journald configured.
+2026-04-19T11:27:44Z [INFO] Writing /etc/hosts...
+2026-04-19T11:27:44Z [INFO] /etc/hosts written.
+2026-04-19T11:27:44Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-19T11:27:44Z [INFO] Building DKMS for kernel: 6.19.11+deb13-amd64
+2026-04-19T11:27:44Z [INFO] DKMS rebuild completed.
+2026-04-19T11:27:44Z [INFO] Validating base install...
+2026-04-19T11:27:44Z [INFO] Kernel version: 6.19.11-1~bpo13+1
+2026-04-19T11:27:44Z [INFO] Headers version: 6.19.11-1~bpo13+1
+2026-04-19T11:27:45Z [INFO] ZFS DKMS verified.
+2026-04-19T11:27:45Z [ERR ] /opt/acab skeleton missing
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:29:57Z
+═══════════════════════════════════════════
+
+2026-04-19T11:29:57Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:29:57Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:29:57Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:29:57Z [INFO] Running mmdebstrap...
+2026-04-19T11:29:57Z [INFO]   target: /mnt/install
+2026-04-19T11:29:57Z [INFO]   hostname: 0xacabOS-Dev
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-19T11:30:45Z
+═══════════════════════════════════════════
+
+2026-04-19T11:30:45Z [INFO] Starting stage: BASE_INSTALL
+2026-04-19T11:30:45Z [INFO] === BASE_INSTALL ===
+2026-04-19T11:30:45Z [INFO] Mounting ROOT dataset...
+2026-04-19T11:30:45Z [INFO] Running mmdebstrap...
+2026-04-19T11:30:45Z [INFO]   target: /mnt/install
+2026-04-19T11:30:45Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-19T11:34:47Z [INFO] mmdebstrap completed.
+2026-04-19T11:34:47Z [INFO] Mounting EFI partition...
+2026-04-19T11:34:47Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-19T11:34:47Z [INFO] Writing fstab...
+2026-04-19T11:34:47Z [INFO] fstab written.
+2026-04-19T11:34:47Z [INFO] Writing keyboard configuration...
+2026-04-19T11:34:47Z [INFO] Keyboard configuration written.
+2026-04-19T11:34:47Z [INFO] Configuring SSH hardening...
+2026-04-19T11:34:47Z [INFO] SSH hardening configured.
+2026-04-19T11:34:47Z [INFO] Configuring journald...
+2026-04-19T11:34:47Z [INFO] Journald configured.
+2026-04-19T11:34:47Z [INFO] Writing /etc/hosts...
+2026-04-19T11:34:47Z [INFO] /etc/hosts written.
+2026-04-19T11:34:47Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-19T11:34:48Z [INFO] Building DKMS for kernel: 6.19.11+deb13-amd64
+2026-04-19T11:34:48Z [INFO] DKMS rebuild completed.
+2026-04-19T11:34:48Z [INFO] Validating base install...
+2026-04-19T11:34:48Z [INFO] Kernel version: 6.19.11-1~bpo13+1
+2026-04-19T11:34:48Z [INFO] Headers version: 6.19.11-1~bpo13+1
+2026-04-19T11:34:48Z [INFO] ZFS DKMS verified.
+2026-04-19T11:34:48Z [INFO] Resetting dataset mountpoint...
+2026-04-19T11:34:48Z [INFO] BASE_INSTALL complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T06:31:17Z
+═══════════════════════════════════════════
+
+2026-04-20T06:31:17Z [INFO] Starting stage: BASE_INSTALL
+2026-04-20T06:31:17Z [INFO] === BASE_INSTALL ===
+2026-04-20T06:31:17Z [INFO] Mounting ROOT dataset...
+2026-04-20T06:31:17Z [INFO] Running mmdebstrap...
+2026-04-20T06:31:17Z [INFO]   target: /mnt/install
+2026-04-20T06:31:17Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-20T06:35:24Z [INFO] mmdebstrap completed.
+2026-04-20T06:35:24Z [INFO] Mounting EFI partition...
+2026-04-20T06:35:24Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-20T06:35:24Z [INFO] Writing fstab...
+2026-04-20T06:35:24Z [INFO] fstab written.
+2026-04-20T06:35:24Z [INFO] Writing keyboard configuration...
+2026-04-20T06:35:24Z [INFO] Keyboard configuration written.
+2026-04-20T06:35:24Z [INFO] Configuring SSH hardening...
+2026-04-20T06:35:24Z [INFO] SSH hardening configured.
+2026-04-20T06:35:24Z [INFO] Configuring journald...
+2026-04-20T06:35:24Z [INFO] Journald configured.
+2026-04-20T06:35:24Z [INFO] Writing /etc/hosts...
+2026-04-20T06:35:24Z [INFO] /etc/hosts written.
+2026-04-20T06:35:24Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-20T06:35:24Z [INFO] Building DKMS for kernel: 6.19.11+deb13-amd64
+2026-04-20T06:35:24Z [INFO] DKMS rebuild completed.
+2026-04-20T06:35:24Z [INFO] Validating base install...
+2026-04-20T06:35:24Z [INFO] Kernel version: 6.19.11-1~bpo13+1
+2026-04-20T06:35:24Z [INFO] Headers version: 6.19.11-1~bpo13+1
+2026-04-20T06:35:24Z [INFO] ZFS DKMS verified.
+2026-04-20T06:35:24Z [INFO] BASE_INSTALL complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T09:42:41Z
+═══════════════════════════════════════════
+
+2026-04-20T09:42:41Z [INFO] Starting stage: BASE_INSTALL
+2026-04-20T09:42:41Z [INFO] === BASE_INSTALL ===
+2026-04-20T09:42:41Z [INFO] Mounting ROOT dataset...
+2026-04-20T09:42:41Z [INFO] Running mmdebstrap...
+2026-04-20T09:42:41Z [INFO]   target: /mnt/install
+2026-04-20T09:42:41Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-20T09:46:51Z [INFO] mmdebstrap completed.
+2026-04-20T09:46:51Z [INFO] Mounting EFI partition...
+2026-04-20T09:46:51Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-20T09:46:51Z [INFO] Writing fstab...
+2026-04-20T09:46:51Z [INFO] fstab written.
+2026-04-20T09:46:51Z [INFO] Writing keyboard configuration...
+2026-04-20T09:46:51Z [INFO] Keyboard configuration written.
+2026-04-20T09:46:51Z [INFO] Configuring SSH hardening...
+2026-04-20T09:46:51Z [INFO] SSH hardening configured.
+2026-04-20T09:46:51Z [INFO] Configuring journald...
+2026-04-20T09:46:51Z [INFO] Journald configured.
+2026-04-20T09:46:51Z [INFO] Writing /etc/hosts...
+2026-04-20T09:46:51Z [INFO] /etc/hosts written.
+2026-04-20T09:46:51Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-20T09:46:51Z [INFO] Building DKMS for kernel: 6.19.11+deb13-amd64
+2026-04-20T09:46:51Z [INFO] DKMS rebuild completed.
+2026-04-20T09:46:51Z [INFO] Validating base install...
+2026-04-20T09:46:51Z [INFO] Kernel version: 6.19.11-1~bpo13+1
+2026-04-20T09:46:51Z [INFO] Headers version: 6.19.11-1~bpo13+1
+2026-04-20T09:46:51Z [INFO] ZFS DKMS verified.
+2026-04-20T09:46:51Z [INFO] BASE_INSTALL complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-20T21:45:36Z
+═══════════════════════════════════════════
+
+2026-04-20T21:45:36Z [INFO] Starting stage: BASE_INSTALL
+2026-04-20T21:45:36Z [INFO] === BASE_INSTALL ===
+2026-04-20T21:45:36Z [INFO] Mounting ROOT dataset...
+2026-04-20T21:45:36Z [INFO] Running mmdebstrap...
+2026-04-20T21:45:36Z [INFO]   target: /mnt/install
+2026-04-20T21:45:36Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-20T21:49:46Z [INFO] mmdebstrap completed.
+2026-04-20T21:49:46Z [INFO] Mounting EFI partition...
+2026-04-20T21:49:46Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-20T21:49:46Z [INFO] Writing fstab...
+2026-04-20T21:49:46Z [INFO] fstab written.
+2026-04-20T21:49:46Z [INFO] Writing keyboard configuration...
+2026-04-20T21:49:46Z [INFO] Keyboard configuration written.
+2026-04-20T21:49:46Z [INFO] Configuring SSH hardening...
+2026-04-20T21:49:46Z [INFO] SSH hardening configured.
+2026-04-20T21:49:46Z [INFO] Configuring journald...
+2026-04-20T21:49:46Z [INFO] Journald configured.
+2026-04-20T21:49:46Z [INFO] Writing /etc/hosts...
+2026-04-20T21:49:46Z [INFO] /etc/hosts written.
+2026-04-20T21:49:46Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-20T21:49:46Z [INFO] Building DKMS for kernel: 6.19.11+deb13-amd64
+2026-04-20T21:49:46Z [INFO] DKMS rebuild completed.
+2026-04-20T21:49:46Z [INFO] Validating base install...
+2026-04-20T21:49:46Z [INFO] Kernel version: 6.19.11-1~bpo13+1
+2026-04-20T21:49:46Z [INFO] Headers version: 6.19.11-1~bpo13+1
+2026-04-20T21:49:46Z [INFO] ZFS DKMS verified.
+2026-04-20T21:49:46Z [INFO] BASE_INSTALL complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T00:32:34Z
+═══════════════════════════════════════════
+
+2026-04-21T00:32:34Z [INFO] Starting stage: BASE_INSTALL
+2026-04-21T00:32:34Z [INFO] === BASE_INSTALL ===
+2026-04-21T00:32:34Z [INFO] Mounting ROOT dataset...
+2026-04-21T00:32:34Z [INFO] Running mmdebstrap...
+2026-04-21T00:32:34Z [INFO]   target: /mnt/install
+2026-04-21T00:32:34Z [INFO]   hostname: 0xacabOS-Dev
+2026-04-21T00:36:45Z [INFO] mmdebstrap completed.
+2026-04-21T00:36:45Z [INFO] Mounting EFI partition...
+2026-04-21T00:36:45Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-21T00:36:45Z [INFO] Writing fstab...
+2026-04-21T00:36:45Z [INFO] fstab written.
+2026-04-21T00:36:45Z [INFO] Writing keyboard configuration...
+2026-04-21T00:36:45Z [INFO] Keyboard configuration written.
+2026-04-21T00:36:45Z [INFO] Configuring SSH hardening...
+2026-04-21T00:36:45Z [INFO] SSH hardening configured.
+2026-04-21T00:36:45Z [INFO] Configuring journald...
+2026-04-21T00:36:45Z [INFO] Journald configured.
+2026-04-21T00:36:45Z [INFO] Writing /etc/hosts...
+2026-04-21T00:36:45Z [INFO] /etc/hosts written.
+2026-04-21T00:36:45Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-21T00:36:45Z [INFO] Building DKMS for kernel: 6.19.11+deb13-amd64
+2026-04-21T00:36:45Z [INFO] DKMS rebuild completed.
+2026-04-21T00:36:45Z [INFO] Validating base install...
+2026-04-21T00:36:46Z [INFO] Kernel version: 6.19.11-1~bpo13+1
+2026-04-21T00:36:46Z [INFO] Headers version: 6.19.11-1~bpo13+1
+2026-04-21T00:36:46Z [INFO] ZFS DKMS verified.
+2026-04-21T00:36:46Z [INFO] BASE_INSTALL complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T10:15:04Z
+═══════════════════════════════════════════
+
+2026-04-21T10:15:04Z [INFO] Starting stage: BASE_INSTALL
+2026-04-21T10:15:04Z [INFO] === BASE_INSTALL ===
+2026-04-21T10:15:04Z [INFO] Mounting ROOT dataset...
+2026-04-21T10:15:04Z [INFO] Running mmdebstrap...
+2026-04-21T10:15:04Z [INFO]   target: /mnt/install
+2026-04-21T10:15:04Z [INFO]   hostname: 0xacab-OS-Dev
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T10:28:33Z
+═══════════════════════════════════════════
+
+2026-04-21T10:28:33Z [INFO] Starting stage: BASE_INSTALL
+2026-04-21T10:28:33Z [INFO] === BASE_INSTALL ===
+2026-04-21T10:28:33Z [WARN] Target already populated. Running dataset rerun...
+2026-04-21T10:28:33Z [ERR ] Stale bind mounts detected under /mnt/install:
+2026-04-21T10:28:33Z [ERR ] Manual cleanup required. Aborting.
+2026-04-21T10:28:33Z [INFO] Mounting ROOT dataset...
+2026-04-21T10:28:33Z [INFO] Running mmdebstrap...
+2026-04-21T10:28:33Z [INFO]   target: /mnt/install
+2026-04-21T10:28:33Z [INFO]   hostname: 0xacab-OS-Dev
+2026-04-21T10:28:33Z [ERR ] mmdebstrap failed
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T10:30:04Z
+═══════════════════════════════════════════
+
+2026-04-21T10:30:04Z [INFO] Starting stage: BASE_INSTALL
+2026-04-21T10:30:04Z [INFO] === BASE_INSTALL ===
+2026-04-21T10:30:04Z [INFO] Mounting ROOT dataset...
+2026-04-21T10:30:04Z [ERR ] Failed to mount ACABROOT-39F2/ROOT/acabos at /mnt/install
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T10:30:10Z
+═══════════════════════════════════════════
+
+2026-04-21T10:30:10Z [INFO] Starting stage: BASE_INSTALL
+2026-04-21T10:30:10Z [INFO] === BASE_INSTALL ===
+2026-04-21T10:30:10Z [INFO] Mounting ROOT dataset...
+2026-04-21T10:30:10Z [INFO] Running mmdebstrap...
+2026-04-21T10:30:10Z [INFO]   target: /mnt/install
+2026-04-21T10:30:10Z [INFO]   hostname: 0xacabOS-DEV
+2026-04-21T10:34:13Z [INFO] mmdebstrap completed.
+2026-04-21T10:34:13Z [INFO] Mounting EFI partition...
+2026-04-21T10:34:13Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-21T10:34:13Z [INFO] Writing fstab...
+2026-04-21T10:34:13Z [INFO] fstab written.
+2026-04-21T10:34:13Z [INFO] Writing keyboard configuration...
+2026-04-21T10:34:13Z [INFO] Keyboard configuration written.
+2026-04-21T10:34:13Z [INFO] Configuring SSH hardening...
+2026-04-21T10:34:14Z [INFO] SSH hardening configured.
+2026-04-21T10:34:14Z [INFO] Configuring journald...
+2026-04-21T10:34:14Z [INFO] Journald configured.
+2026-04-21T10:34:14Z [INFO] Writing /etc/hosts...
+2026-04-21T10:34:14Z [INFO] /etc/hosts written.
+2026-04-21T10:34:14Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-21T10:34:14Z [INFO] Building DKMS for kernel: 6.19.11+deb13-amd64
+2026-04-21T10:34:14Z [INFO] DKMS rebuild completed.
+2026-04-21T10:34:14Z [INFO] Validating base install...
+2026-04-21T10:34:14Z [INFO] Kernel version: 6.19.11-1~bpo13+1
+2026-04-21T10:34:14Z [INFO] Headers version: 6.19.11-1~bpo13+1
+2026-04-21T10:34:14Z [INFO] ZFS DKMS verified.
+2026-04-21T10:34:14Z [INFO] Resetting ROOT dataset mountpoint for installed system...
+2026-04-21T10:34:14Z [INFO] ROOT dataset mountpoint reset to /.
+2026-04-21T10:34:14Z [INFO] BASE_INSTALL complete.
+
+═══════════════════════════════════════════
+STAGE RETRY: 2026-04-21T12:37:13Z
+═══════════════════════════════════════════
+
+2026-04-21T12:37:13Z [INFO] Starting stage: BASE_INSTALL
+2026-04-21T12:37:13Z [INFO] === BASE_INSTALL ===
+2026-04-21T12:37:13Z [INFO] Mounting ROOT dataset...
+2026-04-21T12:37:13Z [INFO] Running mmdebstrap...
+2026-04-21T12:37:13Z [INFO]   target: /mnt/install
+2026-04-21T12:37:13Z [INFO]   hostname: 0xacabOS-DEV
+2026-04-21T12:41:20Z [INFO] mmdebstrap completed.
+2026-04-21T12:41:20Z [INFO] Mounting EFI partition...
+2026-04-21T12:41:20Z [INFO] EFI mounted at /mnt/install/boot/efi.
+2026-04-21T12:41:20Z [INFO] Writing fstab...
+2026-04-21T12:41:20Z [INFO] fstab written.
+2026-04-21T12:41:20Z [INFO] Writing keyboard configuration...
+2026-04-21T12:41:20Z [INFO] Keyboard configuration written.
+2026-04-21T12:41:20Z [INFO] Configuring SSH hardening...
+2026-04-21T12:41:20Z [INFO] SSH hardening configured.
+2026-04-21T12:41:20Z [INFO] Configuring journald...
+2026-04-21T12:41:20Z [INFO] Journald configured.
+2026-04-21T12:41:20Z [INFO] Writing /etc/hosts...
+2026-04-21T12:41:20Z [INFO] /etc/hosts written.
+2026-04-21T12:41:20Z [INFO] Running post-mmdebstrap DKMS rebuild...
+2026-04-21T12:41:20Z [INFO] Building DKMS for kernel: 6.19.11+deb13-amd64
+2026-04-21T12:41:20Z [INFO] DKMS rebuild completed.
+2026-04-21T12:41:20Z [INFO] Validating base install...
+2026-04-21T12:41:20Z [INFO] Kernel version: 6.19.11-1~bpo13+1
+2026-04-21T12:41:20Z [INFO] Headers version: 6.19.11-1~bpo13+1
+2026-04-21T12:41:21Z [INFO] ZFS DKMS verified.
+2026-04-21T12:41:21Z [INFO] Resetting ROOT dataset mountpoint for installed system...
+2026-04-21T12:41:21Z [INFO] ROOT dataset mountpoint reset to /.
+2026-04-21T12:41:21Z [INFO] BASE_INSTALL complete.

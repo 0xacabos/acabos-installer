@@ -1,0 +1,7 @@
+[Pod]
+PodName=ai-services
+PublishPort=11434
+PublishPort=8080
+PublishPort=7860
+PublishPort=8188
+PublishPort=6333

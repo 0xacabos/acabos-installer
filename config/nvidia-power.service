@@ -1,0 +1,12 @@
+[Unit]
+Description=NVIDIA Power Management Service
+After=multi-user.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/nvidia-smi -pm 1
+ExecStart=/usr/bin/nvidia-smi -e 0
+
+[Install]
+WantedBy=multi-user.target

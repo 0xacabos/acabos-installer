@@ -1,0 +1,251 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+
+# acabos-install -- main entry point for the ACABOS installer.
+#
+# Resumable state machine that progresses through 13 ordered stages:
+#   PREFLIGHT → INPUT → DISK_SAFETY → ZFS_CREATE → BASE_INSTALL
+#   → BOOT_CHAIN → NVIDIA_BRINGUP → PODMAN_SUBSTRATE → DESKTOP_SUBSTRATE
+#   → AI_SUBSTRATE → INFERENCE_SUBSTRATE → VALIDATION → FINALIZE
+#
+# Usage: ./acabos-install [--resume] [--skip-gpu-validation] [--shell] [--help]
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+source "${SCRIPT_DIR}/lib/common.sh"
+source "${SCRIPT_DIR}/lib/topology.sh"
+source "${SCRIPT_DIR}/lib/detect_virt.sh"
+source "${SCRIPT_DIR}/lib/probes.sh"
+source "${SCRIPT_DIR}/lib/stage_preflight.sh"
+source "${SCRIPT_DIR}/lib/stage_input.sh"
+source "${SCRIPT_DIR}/lib/stage_disk_safety.sh"
+source "${SCRIPT_DIR}/lib/stage_zfs_create.sh"
+source "${SCRIPT_DIR}/lib/stage_base_install.sh"
+source "${SCRIPT_DIR}/lib/stage_boot_chain.sh"
+source "${SCRIPT_DIR}/lib/stage_nvidia_bringup.sh"
+source "${SCRIPT_DIR}/lib/stage_podman.sh"
+source "${SCRIPT_DIR}/lib/stage_desktop.sh"
+source "${SCRIPT_DIR}/lib/stage_ai.sh"
+source "${SCRIPT_DIR}/lib/stage_inference.sh"
+source "${SCRIPT_DIR}/lib/stage_validation.sh"
+source "${SCRIPT_DIR}/lib/stage_finalize.sh"
+
+STAGE_ORDER=(
+  "PREFLIGHT"
+  "INPUT"
+  "DISK_SAFETY"
+  "ZFS_CREATE"
+  "BASE_INSTALL"
+  "BOOT_CHAIN"
+  "NVIDIA_BRINGUP"
+  "PODMAN_SUBSTRATE"
+  "DESKTOP_SUBSTRATE"
+  "AI_SUBSTRATE"
+  "INFERENCE_SUBSTRATE"
+  "VALIDATION"
+  "FINALIZE"
+)
+
+declare -A STAGE_FUNCS
+STAGE_FUNCS=(
+  ["PREFLIGHT"]="run_preflight"
+  ["INPUT"]="run_input"
+  ["DISK_SAFETY"]="run_disk_safety"
+  ["ZFS_CREATE"]="run_zfs_create"
+  ["BASE_INSTALL"]="run_base_install"
+  ["BOOT_CHAIN"]="run_boot_chain"
+  ["NVIDIA_BRINGUP"]="run_nvidia_bringup"
+  ["PODMAN_SUBSTRATE"]="run_podman"
+  ["DESKTOP_SUBSTRATE"]="run_desktop"
+  ["AI_SUBSTRATE"]="run_ai"
+  ["INFERENCE_SUBSTRATE"]="run_inference"
+  ["VALIDATION"]="run_validation"
+  ["FINALIZE"]="run_finalize"
+)
+
+usage() {
+  echo "ACABOS Installer — baseline AI development workstation"
+  echo ""
+  echo "Usage: $0 [OPTIONS]"
+  echo ""
+  echo "Options:"
+  echo "  --resume              Resume interrupted install"
+  echo "  --skip-gpu-validation Skip NVIDIA runtime validation (for VM/lab)"
+  echo "  --shell               Drop to recovery shell before starting"
+  echo "  --help                Show this help"
+  echo ""
+  echo "Run from a Debian Trixie live USB session with root privileges."
+}
+
+SKIP_GPU=false
+RESUME=false
+START_SHELL=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --resume)              RESUME=true; shift ;;
+    --skip-gpu-validation) SKIP_GPU=true; shift ;;
+    --shell)               START_SHELL=true; shift ;;
+    --help)                usage; exit 0 ;;
+    *)                     echo "Unknown option: $1"; usage; exit 1 ;;
+  esac
+done
+
+[[ "$(id -u)" -eq 0 ]] || fail "This installer must be run as root."
+
+export ACABOS_SKIP_GPU_VALIDATION="$SKIP_GPU"
+
+init_paths
+
+echo "============================================"
+echo "  ACABOS Installer"
+echo "  State version: ${STATE_VERSION}"
+echo "  Topology version: ${TOPOLOGY_VERSION}"
+echo "  Doctor version: ${DOCTOR_SCHEMA_VERSION}"
+echo "  Stages: ${#STAGE_ORDER[@]}"
+echo "============================================"
+echo ""
+
+if [[ "$START_SHELL" == "true" ]]; then
+  echo "Dropping to recovery shell. Exit to continue installer."
+  bash
+fi
+
+find_resume_point() {
+  local state
+  state="$(state_read)" || return 1
+  local current
+  current=$(echo "$state" | jq -r '.current_stage // ""')
+  if [[ -n "$current" && "$current" != "INIT" && "$current" != "DONE" ]]; then
+    echo "$current"
+    return 0
+  fi
+  return 1
+}
+
+attempt_resume() {
+  local resume_stage
+  resume_stage="$(find_resume_point)" || return 1
+
+  log "Found state file with current_stage=${resume_stage}"
+
+  local stage_status
+  stage_status=$(state_get_stage_status "$resume_stage" 2>/dev/null || echo "")
+  if [[ "$stage_status" == "success" ]]; then
+    log "Running re-entry probe for ${resume_stage}..."
+
+    local probe_result
+    probe_result=$(probe_stage "$resume_stage" 2>&1)
+    local probe_rc=$?
+    log "Probe exit code: ${probe_rc}"
+    log "Probe output: ${probe_result:-<empty>}"
+
+    if [[ $probe_rc -ne 0 ]]; then
+      err "Re-entry probe FAILED for stage: ${resume_stage} (rc=${probe_rc})"
+      err "Probe output: ${probe_result:-<empty>}"
+      echo ""
+      echo "State file says ${resume_stage} should be resumable, but on-disk reality disagrees."
+      echo ""
+      echo "Options:"
+      echo "  1) Rerun ${resume_stage} from scratch"
+      echo "  2) Rollback to prior stage"
+      echo "  3) Recovery shell"
+      echo "  4) Abort"
+      echo ""
+      read -r -p "Choice [1-4]: " choice
+      case "$choice" in
+        1) return 1 ;;
+        2) return 2 ;;
+        3) bash; return 1 ;;
+        4) return 99 ;;
+        *) return 99 ;;
+      esac
+    fi
+  else
+    log "Stage ${resume_stage} status='${stage_status:-none}' — skipping probe, will re-run."
+  fi
+
+  log "Probe passed for ${resume_stage}. Resuming after this stage."
+  return 0
+}
+
+run_stage_with_state() {
+  local stage="$1"
+  local func="$2"
+
+  write_log_separator "$stage"
+  state_set_stage "$stage"
+
+  log "Starting stage: ${stage}"
+  if "$func"; then
+    state_complete_stage "$stage"
+    finalize_stage_log "$stage"
+    log "Stage completed: ${stage}"
+  else
+    local rc=$?
+    state_fail_stage "Stage returned non-zero exit code"
+    finalize_stage_log "$stage"
+    err "Stage FAILED: ${stage}"
+    echo ""
+    echo "Stage ${stage} failed."
+    echo "Options:"
+    echo "  1) Retry stage"
+    echo "  2) Recovery shell"
+    echo "  3) Abort"
+    echo ""
+    choice=$(prompt_select "Select recovery action" "Retry stage" "Recovery shell" "Abort") || fail "Invalid choice. Aborting."
+    case "$choice" in
+      "Retry stage") run_stage_with_state "$stage" "$func" ;;
+      "Recovery shell") bash; run_stage_with_state "$stage" "$func" ;;
+      "Abort") fail "Aborted by operator." ;;
+      *) fail "Invalid choice. Aborting." ;;
+    esac
+  fi
+}
+
+if [[ "$RESUME" == "true" ]]; then
+  if ! state_read >/dev/null 2>&1; then
+    fail "No state file found. Cannot resume."
+  fi
+
+  stored_version=$(state_get_field "state_version" 2>/dev/null || echo "")
+  [[ "$stored_version" == "$STATE_VERSION" ]] \
+    || fail "State file version mismatch: file=${stored_version} installer=${STATE_VERSION}"
+
+  resume_result=$(attempt_resume) || {
+    rc=$?
+    if [[ $rc -eq 99 ]]; then
+      fail "Aborted by operator."
+    elif [[ $rc -eq 2 ]]; then
+      fail "Rollback to prior stage not yet automated. Use recovery shell."
+    elif [[ $rc -ne 1 ]]; then
+      fail "Resume failed with unexpected exit code: ${rc}"
+    fi
+  }
+
+  resume_stage="$(find_resume_point)" || fail "Cannot determine resume point."
+  found=false
+  for stage in "${STAGE_ORDER[@]}"; do
+    if [[ "$stage" == "$resume_stage" ]]; then
+      found=true
+      status=$(state_get_stage_status "$stage")
+      if [[ "$status" == "success" ]]; then
+        log "Skipping completed stage: ${stage}"
+        continue
+      fi
+      log "Resuming from stage: ${stage}"
+    fi
+    if $found; then
+      run_stage_with_state "$stage" "${STAGE_FUNCS[$stage]}"
+    fi
+  done
+else
+  for stage in "${STAGE_ORDER[@]}"; do
+    run_stage_with_state "$stage" "${STAGE_FUNCS[$stage]}"
+  done
+fi
+
+log "All stages completed successfully."
+echo ""
+echo "ACABOS installation finished successfully."

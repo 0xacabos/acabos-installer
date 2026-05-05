@@ -1,0 +1,279 @@
+# ACABOS Container Services
+
+This document describes the containerized AI services deployed on ACABOS and provides operational instructions for installation, maintenance, and troubleshooting.
+
+## Overview
+
+ACABOS ships a deliberately narrow containerized support stack powered by Podman and systemd quadlets. The default supported container services are:
+
+- `qdrant`
+- `localai`
+- `comfyui`
+
+Core inference and developer tooling are native services, not containers.
+
+## Deployed Containers
+
+| Service | Image | Ports | Purpose | Status |
+|---------|-------|------|---------|--------|
+| **qdrant** | pinned by digest | 6333, 6334 | Vector database | Validated on first boot |
+| **localai** | pinned by digest | 8081 | LocalAI API | Validated on first boot |
+| **comfyui** | pinned by digest | 8188 | Node-based image generation | Validated on first boot |
+
+## Quick Start
+
+### Check Service Status
+
+```bash
+# View retained container services
+ai-stack status
+
+# Or using systemctl
+systemctl status qdrant.service localai.service comfyui.service --no-pager
+```
+
+### Start All Services
+
+```bash
+# Start retained container services
+ai-stack up
+
+# Or start individually
+systemctl start qdrant.service
+systemctl start localai.service
+systemctl start comfyui.service
+```
+
+### Stop All Services
+
+```bash
+ai-stack down
+```
+
+## Installation
+
+### First-Time Setup
+
+1. **Pull container images:**
+   ```bash
+   ai-services pull
+   ```
+   This pulls all images defined in the quadlet files. May take 10-30 minutes depending on network.
+
+2. **Verify GPU access:**
+   ```bash
+   test-nvidia-container
+   ```
+   Should display nvidia-smi output from within a CUDA container.
+
+3. **Start services:**
+   ```bash
+   ai-stack up
+   ```
+
+### Network Access
+
+Once services are running, access them at:
+
+| Service | URL |
+|--------|-----|
+| Qdrant | http://localhost:6333 |
+| LocalAI | http://localhost:8081 |
+| ComfyUI | http://localhost:8188 |
+
+## Maintenance
+
+### Updating Images
+
+```bash
+# Pull latest images for all services
+ai-services pull
+
+# Restart services to use new images
+ai-stack restart
+```
+
+### Viewing Logs
+
+```bash
+# All retained container services
+ai-services logs
+
+# Individual service
+journalctl -u qdrant.service -f
+systemctl status qdrant.service --no-pager -e
+```
+
+### Accessing Containers
+
+```bash
+# Shell into a running container
+ai-shell localai
+ai-shell comfyui
+```
+
+### Disk Space Management
+
+```bash
+# List volumes
+podman volume ls
+
+# Clean up unused images
+podman image prune -a
+
+# Clean up unused containers
+podman container prune
+```
+
+## Volumes
+
+Each service uses persistent volumes for data persistence:
+
+| Volume | Mount Point | Purpose |
+|--------|------------|---------|
+| `qdrant-data` | `/qdrant/storage` | Vector storage |
+| `localai-models` | `/build/models` | LocalAI models |
+| `localai-preload` | `/build/preload` | Preloaded models |
+| `comfyui-models` | `/app/models` | ComfyUI custom nodes |
+| `comfyui-output` | `/app/output` | Generated images |
+| `comfyui-custom-nodes` | `/app/custom_nodes` | Custom nodes |
+
+## Troubleshooting
+
+### Service Won't Start
+
+1. **Check logs:**
+   ```bash
+   journalctl -u qdrant.service -n 100 --no-pager
+   ```
+
+2. **Verify GPU availability:**
+   ```bash
+   nvidia-smi
+   test-nvidia-container
+   ```
+
+3. **Check port conflicts:**
+   ```bash
+   ss -tlnp | grep <port>
+   ```
+
+### GPU Not Available in Container
+
+1. Ensure NVIDIA driver is installed:
+   ```bash
+   nvidia-smi
+   ```
+
+2. Verify nvidia-container-toolkit:
+   ```bash
+   nvidia-container-toolkit --version
+   ```
+
+3. Restart container runtime:
+   ```bash
+   sudo systemctl restart podman
+   ```
+
+### Pulling Images Fails
+
+1. Check network connectivity:
+   ```bash
+   curl -I https://docker.io
+   ```
+
+2. Use proxy if needed:
+   ```bash
+   export HTTP_PROXY=http://proxy:port
+   export HTTPS_PROXY=http://proxy:port
+   ```
+
+### Out of Disk Space
+
+```bash
+# Clean up podman volumes
+podman system reset  # WARNING: removes all containers and images
+
+# Or remove specific volumes
+podman volume rm <volume-name>
+```
+
+## Customization
+
+### Modifying Service Configuration
+
+Edit the quadlet files in `/etc/containers/systemd/`:
+
+```bash
+# Example: Change Qdrant port
+sudo nano /etc/containers/systemd/qdrant.container
+
+# Reload systemd
+systemctl daemon-reload
+
+# Restart service
+systemctl restart qdrant.service
+```
+
+### Adding New Services
+
+1. Create a new quadlet file in `/etc/containers/systemd/`:
+   ```bash
+   sudo nano /etc/containers/systemd/my-service.container
+   ```
+
+2. Format:
+   ```ini
+   [Unit]
+   Description=My Service
+   After=local-fs.target
+
+   [Container]
+   Image=docker.io/myimage:latest
+   ContainerName=my-service
+   PublishPort=8080:8080
+
+   [Service]
+   Restart=always
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+3. Enable and start:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now my-service.container
+   ```
+
+## Additional Tools
+
+ACABOS provides helper scripts:
+
+```bash
+# GPU benchmark
+gpu-benchmark
+
+# Model management
+model-manager list
+model-manager download <huggingface-model>
+model-manager serve <profile>
+
+# AI stack control
+ai-stack up|down|status
+
+# Service control
+ai-services start|stop|restart|status|logs|pull
+```
+
+## Service Dependencies
+
+```
+No retained default container dependencies - services can run independently.
+```
+
+## Security Notes
+
+- Services bind to explicit published ports and should be treated as network-exposed unless filtered
+- Consider firewall rules for production use
+- Qdrant port 6334 provides GRPC access

@@ -1,0 +1,4 @@
+# PyTorch wheel index pinning
+# ACABOS ships a CUDA 13.2 host toolchain, but PyTorch wheels are pinned to cu124.
+# This is intentional: the cu124 wheels are validated against the ACABOS NVIDIA/CUDA driver stack.
+PYTORCH_INDEX_URL="https://download.pytorch.org/whl/cu124"

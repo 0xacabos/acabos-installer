@@ -1,0 +1,9 @@
+# mistral.rs release pinning
+# mistral.rs does not ship prebuilt binaries.
+# Installed via cargo install on the target system.
+# Update version and features when a new release is validated against the target CUDA/kernel.
+MISTRAL_VERSION="0.8.1"
+MISTRAL_FEATURES="cuda cudnn flash-attn"
+RUST_MIN_VERSION="1.88"
+MISTRAL_CUDA_COMPUTE_CAP="89"
+LLAMA_CUDA_ARCHITECTURES="89"

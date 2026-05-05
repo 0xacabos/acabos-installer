@@ -1,0 +1,19 @@
+# System-level AI/ML utility packages.
+# Installed via apt-get install in AI_SUBSTRATE stage.
+nvtop
+gpustat
+hwloc
+numactl
+libnuma-dev
+bc
+parallel
+moreutils
+expect
+python3-numpy
+python3-scipy
+python3-pandas
+python3-matplotlib
+python3-seaborn
+python3-sklearn
+python3-pil
+python3-opencv

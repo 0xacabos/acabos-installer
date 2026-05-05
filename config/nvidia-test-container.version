@@ -1,0 +1,3 @@
+# NVIDIA container runtime smoke-test image
+# Keep this aligned with the host CUDA major/minor toolchain used by ACABOS.
+NVIDIA_TEST_CONTAINER_IMAGE="docker.io/nvidia/cuda:13.2.1-base-ubuntu22.04"
