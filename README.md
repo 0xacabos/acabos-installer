@@ -128,5 +128,7 @@ See `docs/config-reference.md` for full per-file ownership and stage usage.
 - `media/medium-design.md`
 - `media/live-package-manifest.md`
 - `media/text-launcher-spec.md`
+- `media/build-medium.sh`
+- `media/purge-build-artifacts.sh`
 
 Historical changelog is archived at `CHANGES.md.archive`.

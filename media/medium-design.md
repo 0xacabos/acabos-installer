@@ -78,7 +78,13 @@ The medium build should eventually be automatable:
     → ISO artifact
 ```
 
-For v1, a manual or semi-automated build is acceptable.
+For v1, the repository now includes a semi-automated build entrypoint:
+
+```bash
+./media/build-medium.sh
+```
+
+This script stages `/opt/installer` into the live image, runs `lb clean`, `lb config`, and `lb build`, then copies the resulting ISO into `media/out/`.
 
 ## Boot Flow
 

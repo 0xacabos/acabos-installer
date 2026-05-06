@@ -140,6 +140,12 @@ EOF
 
   local jupyter_token
   jupyter_token=$(grep '^ACABOS_JUPYTER_TOKEN=' "${target}/etc/acabos/jupyter.env" 2>/dev/null | cut -d= -f2- || echo "unknown")
+  local native_services_json='["mistral.rs","ollama","jupyter"]'
+  local container_services_json='["qdrant","localai","comfyui"]'
+  local graphics_cohort_json='[]'
+  if [[ "$gpu_runtime_target" == "cuda" ]]; then
+    graphics_cohort_json=$(jq -n --arg nv "$nvidia_ver" '[{name: "nvidia-driver", version: $nv, status: "installed"}]')
+  fi
 
   local log_artifacts="[]"
   local logged_stage
@@ -176,6 +182,16 @@ EOF
     --arg un "$username" \
     --arg pyv "$py_ver" \
     --arg tv2 "$torch_ver" \
+    --arg gd "$gpu_detected" \
+    --arg gv "$gpu_vendor" \
+    --arg gm "$gpu_model" \
+    --arg gc "$gpu_count" \
+    --arg gst "$gpu_support_tier" \
+    --arg grt "$gpu_runtime_target" \
+    --arg gvp "$gpu_validation_policy" \
+    --argjson nsvcs "$native_services_json" \
+    --argjson csvcs "$container_services_json" \
+    --argjson egfx "$graphics_cohort_json" \
     --argjson la "$log_artifacts" \
     -f "${INSTALLER_DIR}/config/manifest-template.jq" \
     > "${MANIFEST_DIR}/install-manifest.json"

@@ -1,0 +1,16 @@
+#!/bin/sh
+set -e
+
+lb config noauto \
+  --architectures amd64 \
+  --distribution trixie \
+  --archive-areas "main contrib non-free-firmware" \
+  --binary-images iso-hybrid \
+  --debian-installer none \
+  --bootappend-live "boot=live components locales=en_US.UTF-8 keyboard-layouts=us hostname=acabos-installer username=root" \
+  --linux-flavours amd64 \
+  --system systemd \
+  --chroot-filesystem squashfs \
+  --firmware-binary true \
+  --firmware-chroot true \
+  --apt-indices false

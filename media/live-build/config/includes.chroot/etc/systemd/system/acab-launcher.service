@@ -1,0 +1,24 @@
+[Unit]
+Description=ACABOS Installer Launcher
+After=network-online.target systemd-user-sessions.service
+Wants=network-online.target
+Conflicts=getty@tty1.service
+Before=getty@tty1.service
+ConditionPathExists=/opt/installer/acabos-install
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/acab-launcher
+WorkingDirectory=/opt/installer
+StandardInput=tty-force
+StandardOutput=inherit
+StandardError=journal+console
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target

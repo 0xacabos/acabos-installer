@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+
+INSTALLER_DIR="/opt/installer"
+INSTALLER_BIN="$INSTALLER_DIR/acabos-install"
+
+pause() {
+  printf '\nPress Enter to continue...'
+  read -r _ || true
+}
+
+show_header() {
+  clear
+  cat <<'HDR'
+============================================
+  ACABOS Installer Launcher
+  Debian 13 GPU-Aware AI Workstation
+============================================
+HDR
+  printf '\n'
+}
+
+run_installer() {
+  local mode="${1:-}"
+  local extra=()
+  printf 'Skip GPU validation for this run? [y/N]: '
+  read -r skip
+  if [[ "${skip:-}" == "y" || "${skip:-}" == "Y" ]]; then
+    extra+=(--skip-gpu-validation)
+  fi
+  if [[ -n "$mode" ]]; then
+    extra+=("$mode")
+  fi
+  export ACABOS_INSTALLER_LAUNCHED_BY_MEDIUM=true
+  "$INSTALLER_BIN" "${extra[@]}" || true
+  pause
+}
+
+show_diagnostics() {
+  clear
+  echo '=== Block Devices ==='
+  lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS 2>/dev/null || true
+  echo
+  echo '=== ZFS Pools ==='
+  zpool list 2>/dev/null || echo 'No pools imported.'
+  echo
+  echo '=== GPU ==='
+  lspci -nn 2>/dev/null | grep -Ei 'vga|3d|display' || echo 'No GPU info via lspci.'
+  echo
+  if command -v nvidia-smi >/dev/null 2>&1; then
+    echo '=== nvidia-smi ==='
+    nvidia-smi 2>/dev/null || true
+    echo
+  fi
+  echo '=== Network ==='
+  ip -br addr 2>/dev/null || true
+  echo
+  echo '=== Memory ==='
+  free -h 2>/dev/null || true
+  echo
+  echo 'Hugepages:'
+  cat /proc/sys/vm/nr_hugepages 2>/dev/null || true
+  echo
+  pause
+}
+
+recovery_shell() {
+  echo 'Entering recovery shell. Exit to return to the launcher.'
+  bash --login || true
+}
+
+main_loop() {
+  [[ -x "$INSTALLER_BIN" ]] || { echo "Installer not found: $INSTALLER_BIN"; exec bash; }
+  while true; do
+    show_header
+    cat <<'MENU'
+1) Start Installer
+2) Resume Installer
+3) Hardware Diagnostics
+4) Recovery Shell
+5) Reboot
+MENU
+    printf '\nChoice [1-5]: '
+    read -r choice || exit 0
+    case "${choice:-}" in
+      1) run_installer ;;
+      2) run_installer --resume ;;
+      3) show_diagnostics ;;
+      4) recovery_shell ;;
+      5) reboot ;;
+      *) echo 'Invalid choice.'; pause ;;
+    esac
+  done
+}
+
+main_loop

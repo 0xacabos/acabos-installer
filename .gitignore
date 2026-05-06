@@ -1,0 +1,12 @@
+# Installer runtime state and logs
+state/
+
+# Future installer-medium build outputs
+media/out/
+media/work/
+media/tmp/
+
+# Common medium artifacts
+media/*.iso
+media/*.img
+media/*.qcow2

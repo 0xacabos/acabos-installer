@@ -29,25 +29,33 @@
       {name: "linux-headers-amd64", version: $hv, status: "installed"},
       {name: "zfsutils-linux", version: $zv, status: "installed"}
     ],
-    early_graphics: [
-      {name: "nvidia-driver", version: $nv, status: "installed"}
-    ],
+    early_graphics: $egfx,
     runtime_critical: [
       {name: "podman", version: $pv, status: "installed"}
     ]
   },
   inference: {
     runtime: "mistral.rs",
-    runtime_required: true
+    runtime_required: true,
+    profile_driven: true
+  },
+  native_services: {
+    services: $nsvcs
   },
   containers: {
     runtime: "podman",
-    services: ["ollama","ollama-webui","ai-toolbox","stable-diffusion","comfyui","text-generation-webui","localai","whisper-asr","qdrant"]
+    services: $csvcs
   },
   graphics: {
-    gpu_vendor: "nvidia",
+    gpu_detected: ($gd == "true"),
+    gpu_vendor: $gv,
+    gpu_model: $gm,
+    gpu_count: ($gc | tonumber),
+    gpu_support_tier: $gst,
+    gpu_runtime_target: $grt,
+    gpu_validation_policy: $gvp,
     gpu_required: true,
-    drm_modeset_required: true
+    drm_modeset_required: ($grt == "cuda")
   },
   desktop: {
     environment: "sway",

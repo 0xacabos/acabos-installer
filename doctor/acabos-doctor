@@ -106,6 +106,20 @@ get_domain() {
   esac
 }
 
+load_gpu_policy() {
+  ACAB_GPU_DETECTED="false"
+  ACAB_GPU_VENDOR="unknown"
+  ACAB_GPU_MODEL="unknown"
+  ACAB_GPU_COUNT="0"
+  ACAB_GPU_SUPPORT_TIER="experimental"
+  ACAB_GPU_RUNTIME_TARGET="unknown"
+  ACAB_GPU_VALIDATION_POLICY="limited"
+  if [[ -f /etc/acabos/gpu-policy.env ]]; then
+    # shellcheck disable=SC1091
+    . /etc/acabos/gpu-policy.env
+  fi
+}
+
 check_pool_import() {
   local pool_name="$1"
   local desc="Pool ${pool_name} importable read-only"
@@ -211,9 +225,24 @@ check_efi_populated() {
 }
 
 check_nvidia_dkms() {
-  local desc="NVIDIA DKMS module built"
+  local desc="GPU driver posture validated"
   local severity="fail"
   local field="graphics.nvidia_dkms_ok"
+  load_gpu_policy
+  if [[ "$ACAB_GPU_RUNTIME_TARGET" != "cuda" ]]; then
+    if [[ "$ACAB_GPU_SUPPORT_TIER" == "experimental" ]]; then
+      echo_result "pass" "$desc" "$severity" "$field" "experimental vendor=${ACAB_GPU_VENDOR} runtime=${ACAB_GPU_RUNTIME_TARGET}"
+    else
+      local ctx
+      ctx=$(detect_runtime_context)
+      if [[ "$ctx" == "virtual" ]]; then
+        echo_result "warn" "$desc" "$severity" "$field" "no supported CUDA path in virtual environment"
+      else
+        echo_result "fail" "$desc" "$severity" "$field" "no supported CUDA path on physical hardware"
+      fi
+    fi
+    return
+  fi
   local status
   status=$(run_timeout "$SHORT_TIMEOUT" dkms status nvidia 2>/dev/null || echo "")
   if [[ "$status" == *installed* ]]; then
@@ -224,9 +253,24 @@ check_nvidia_dkms() {
 }
 
 check_nvidia_smi() {
-  local desc="nvidia-smi functional"
+  local desc="CUDA runtime posture validated"
   local severity="fail"
   local field="graphics.nvidia_smi_ok"
+  load_gpu_policy
+  if [[ "$ACAB_GPU_RUNTIME_TARGET" != "cuda" ]]; then
+    if [[ "$ACAB_GPU_SUPPORT_TIER" == "experimental" ]]; then
+      echo_result "pass" "$desc" "$severity" "$field" "experimental vendor=${ACAB_GPU_VENDOR}; nvidia-smi not required"
+    else
+      local ctx
+      ctx=$(detect_runtime_context)
+      if [[ "$ctx" == "virtual" ]]; then
+        echo_result "warn" "$desc" "$severity" "$field" "nvidia-smi not applicable in virtual environment"
+      else
+        echo_result "fail" "$desc" "$severity" "$field" "nvidia-smi not applicable and no supported CUDA path present"
+      fi
+    fi
+    return
+  fi
   if run_timeout "$SHORT_TIMEOUT" nvidia-smi >/dev/null 2>&1; then
     echo_result "pass" "$desc" "$severity" "$field" ""
   else
@@ -241,9 +285,24 @@ check_nvidia_smi() {
 }
 
 check_drm_modeset() {
-  local desc="NVIDIA DRM modeset active"
+  local desc="DRM modeset posture validated"
   local severity="fail"
   local field="graphics.drm_modeset_active"
+  load_gpu_policy
+  if [[ "$ACAB_GPU_RUNTIME_TARGET" != "cuda" ]]; then
+    if [[ "$ACAB_GPU_SUPPORT_TIER" == "experimental" ]]; then
+      echo_result "pass" "$desc" "$severity" "$field" "experimental vendor=${ACAB_GPU_VENDOR}; nvidia-drm modeset not required"
+    else
+      local ctx
+      ctx=$(detect_runtime_context)
+      if [[ "$ctx" == "virtual" ]]; then
+        echo_result "warn" "$desc" "$severity" "$field" "nvidia-drm modeset not applicable in virtual environment"
+      else
+        echo_result "fail" "$desc" "$severity" "$field" "nvidia-drm modeset not applicable and no supported CUDA path present"
+      fi
+    fi
+    return
+  fi
   local modeset
   modeset=$(cat /sys/module/nvidia_drm/parameters/modeset 2>/dev/null || echo "")
   if [[ "$modeset" == "Y" ]]; then
@@ -260,28 +319,40 @@ check_drm_modeset() {
 }
 
 check_gpu_detected() {
-  local desc="NVIDIA GPU detected via PCI"
+  local desc="GPU support posture detected"
   local severity="fail"
   local field="graphics.gpu_detected"
-  local count
-  count=$(run_timeout "$SHORT_TIMEOUT" lspci -nn 2>/dev/null | grep -ic nvidia || echo "0")
-  if [[ "$count" -gt 0 ]]; then
-    echo_result "pass" "$desc" "$severity" "$field" "count=${count}"
+  load_gpu_policy
+  if [[ "$ACAB_GPU_DETECTED" == "true" ]]; then
+    if [[ "$ACAB_GPU_SUPPORT_TIER" == "experimental" ]]; then
+      echo_result "pass" "$desc" "$severity" "$field" "vendor=${ACAB_GPU_VENDOR} count=${ACAB_GPU_COUNT} tier=${ACAB_GPU_SUPPORT_TIER}"
+    else
+      echo_result "pass" "$desc" "$severity" "$field" "vendor=${ACAB_GPU_VENDOR} count=${ACAB_GPU_COUNT}"
+    fi
   else
     local ctx
     ctx=$(detect_runtime_context)
     if [[ "$ctx" == "virtual" ]]; then
-      echo_result "warn" "$desc" "$severity" "$field" "No NVIDIA GPU - virtual environment"
+      echo_result "warn" "$desc" "$severity" "$field" "No usable GPU - virtual environment"
     else
-      echo_result "fail" "$desc" "$severity" "$field" "No NVIDIA GPU detected"
+      echo_result "fail" "$desc" "$severity" "$field" "No usable GPU detected"
     fi
   fi
 }
 
 check_nvidia_container_toolkit() {
-  local desc="NVIDIA Container Toolkit functional"
+  local desc="Container GPU runtime posture validated"
   local severity="warn"
   local field="graphics.nvidia_container_toolkit"
+  load_gpu_policy
+  if [[ "$ACAB_GPU_RUNTIME_TARGET" != "cuda" ]]; then
+    if [[ "$ACAB_GPU_SUPPORT_TIER" == "experimental" ]]; then
+      echo_result "pass" "$desc" "$severity" "$field" "experimental vendor=${ACAB_GPU_VENDOR}; nvidia-ctk not required"
+    else
+      echo_result "warn" "$desc" "$severity" "$field" "nvidia-ctk not applicable for runtime target ${ACAB_GPU_RUNTIME_TARGET}"
+    fi
+    return
+  fi
   if command -v nvidia-ctk >/dev/null 2>&1; then
     echo_result "pass" "$desc" "$severity" "$field" ""
   else
