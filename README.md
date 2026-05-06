@@ -123,4 +123,10 @@ See `docs/config-reference.md` for full per-file ownership and stage usage.
 - `CONTRIBUTING.md`
 - `AGENTS.md`
 
+## Installer Medium
+
+- `media/medium-design.md`
+- `media/live-package-manifest.md`
+- `media/text-launcher-spec.md`
+
 Historical changelog is archived at `CHANGES.md.archive`.
