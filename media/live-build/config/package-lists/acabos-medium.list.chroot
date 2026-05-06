@@ -41,8 +41,6 @@ lm-sensors
 # ZFS / install substrate
 zfsutils-linux
 zfs-dkms
-zfs-dracut
-dracut
 mmdebstrap
 dkms
 kmod
@@ -99,6 +97,3 @@ cuda-libraries-13-2
 cuda-libraries-dev-13-2
 cuda-command-line-tools-13-2
 cuda-nvml-dev-13-2
-libcudnn9-cuda-13
-libcudnn9-dev-cuda-13
-libcudnn9-headers-cuda-13

@@ -9,6 +9,7 @@ OUT_DIR="$MEDIA_DIR/out"
 WORK_DIR="$MEDIA_DIR/work"
 TMP_DIR="$MEDIA_DIR/tmp"
 PAYLOAD_DIR="$LB_DIR/config/includes.chroot/opt/installer"
+ARCHIVES_DIR="$LB_DIR/config/archives"
 LOG_FILE="$WORK_DIR/build.log"
 ISO_BASENAME="acabos-installer-amd64.iso"
 
@@ -29,18 +30,28 @@ stage_payload() {
     "$ROOT_DIR"/ "$PAYLOAD_DIR"/
 }
 
+stage_archives() {
+  mkdir -p "$ARCHIVES_DIR"
+  install -m 0644 /usr/share/keyrings/cuda-archive-keyring.gpg "$ARCHIVES_DIR/cuda-archive.key"
+  install -m 0644 /usr/share/keyrings/nvidia-container-toolkit.gpg "$ARCHIVES_DIR/nvidia-container-toolkit.key"
+}
+
 main() {
+  require sudo
   require lb
   require rsync
   require tee
+  require install
   mkdir -p "$OUT_DIR" "$WORK_DIR" "$TMP_DIR"
 
   stage_payload
+  stage_archives
 
   pushd "$LB_DIR" >/dev/null
-  lb clean --purge 2>&1 | tee "$LOG_FILE"
-  lb config 2>&1 | tee -a "$LOG_FILE"
-  lb build 2>&1 | tee -a "$LOG_FILE"
+  sudo lb clean --purge 2>&1 | tee "$LOG_FILE"
+  sudo rm -f config/binary config/bootstrap config/chroot config/common config/source config/package-lists/live.list.chroot
+  sudo ./auto/config 2>&1 | tee -a "$LOG_FILE"
+  sudo ./auto/build 2>&1 | tee -a "$LOG_FILE"
   popd >/dev/null
 
   local built_iso

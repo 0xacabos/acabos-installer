@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+
+CUDNN_VERSION="9.19.0"
+CUDNN_LOCAL_REPO="cudnn-local-repo-debian12-9.19.0_1.0-1_amd64.deb"
+CUDNN_URL="https://developer.download.nvidia.com/compute/cudnn/9.19.0/local_installers/cudnn-local-repo-debian12-9.19.0_1.0-1_amd64.deb"
+CUDNN_SHA256="b2a549818af15d92c728414aaff152f48dbbfbf5d9d80e87d8ff050c2b2efd23"
+CUDNN_GPG_KEY="cudnn-local-19C4FE7D-keyring.gpg"
+CUDNN_REPO_DIR="/var/cudnn-local-repo-debian12-9.19.0"
+
+apt-get update
+curl -fsSL -o "/tmp/${CUDNN_LOCAL_REPO}" "$CUDNN_URL"
+echo "${CUDNN_SHA256}  /tmp/${CUDNN_LOCAL_REPO}" | sha256sum -c -
+dpkg -i "/tmp/${CUDNN_LOCAL_REPO}"
+cp "${CUDNN_REPO_DIR}/${CUDNN_GPG_KEY}" "/usr/share/keyrings/${CUDNN_GPG_KEY}"
+apt-get update
+apt-get install -y libcudnn9-cuda-13 libcudnn9-dev-cuda-13 libcudnn9-headers-cuda-13
+rm -f "/tmp/${CUDNN_LOCAL_REPO}"

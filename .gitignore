@@ -10,3 +10,32 @@ media/tmp/
 media/*.iso
 media/*.img
 media/*.qcow2
+
+
+# live-build generated state
+media/live-build/.build/
+media/live-build/binary/
+media/live-build/binary.*
+media/live-build/cache/
+media/live-build/chroot/
+media/live-build/chroot.*
+media/live-build/live-image-*.iso
+media/live-build/live-image-*.hybrid.iso
+media/live-build/live-image-*.packages
+media/live-build/live-image-*.files
+media/live-build/config/binary
+media/live-build/config/bootstrap
+media/live-build/config/chroot
+media/live-build/config/common
+media/live-build/config/source
+media/live-build/config/package-lists/live.list.chroot
+media/live-build/config/hooks/normal/
+media/live-build/config/hooks/live/0010-disable-kexec-tools.hook.chroot
+media/live-build/config/hooks/live/0050-disable-sysvinit-tmpfs.hook.chroot
+
+
+# staged live-build payload and generated support files
+media/live-build/config/includes.chroot/opt/installer/
+media/live-build/config/includes.chroot_before_packages/etc/dracut.conf.d/50-reproducible.conf
+media/live-build/config/archives/*.key
+media/live-build/config/archives/*.gpg
