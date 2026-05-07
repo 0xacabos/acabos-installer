@@ -39,3 +39,7 @@ media/live-build/config/includes.chroot/opt/installer/
 media/live-build/config/includes.chroot_before_packages/etc/dracut.conf.d/50-reproducible.conf
 media/live-build/config/archives/*.key
 media/live-build/config/archives/*.gpg
+
+
+# qemu lab runtime artifacts
+media/qemu-lab/build/
